@@ -1,3 +1,5 @@
+# AI Budget PWA Project
+
 Developed by react-ts on Vite
 
 ## Skills
