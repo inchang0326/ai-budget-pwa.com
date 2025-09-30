@@ -22,7 +22,7 @@ Developed with react-ts on Vite
   - Budget
     - Data
     - Summary
-      - Investment(AI)
+      - Investment
     - Charts
     - Transactions
   - Auth
