@@ -1,0 +1,168 @@
+.transaction-list {
+  background: var(--color-background-card);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.no-transactions {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 60px var(--spacing-4xl);
+  background: var(--color-background-card);
+  border-radius: var(--border-radius-lg);
+  line-height: 1.6;
+  font-size: var(--font-size-base);
+}
+.search-filter-section {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-xl);
+  background: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+}
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+.search-input {
+  color: var(--color-text);
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) 44px;
+  border: 1px solid #d1d5db;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  background: var(--color-background-card);
+  transition: var(--transition-fast);
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-border-focus);
+}
+.search-input::placeholder {
+  color: var(--color-text-light);
+}
+.search-icon {
+  position: absolute;
+  left: var(--spacing-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: var(--font-size-base);
+}
+.filter-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+.filter-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 2px solid var(--color-border);
+  background: var(--color-background-card);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  transition: var(--transition-fast);
+  color: var(--color-text-muted);
+  width: 65px;
+}
+.filter-button:hover {
+  border-color: #cbd5e0;
+  background: var(--color-background-hover);
+}
+.filter-button.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-text-white);
+}
+.transaction-items {
+  background: var(--color-background-card);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-2xl);
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+}
+.page-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid #d1d5db;
+  background: var(--color-background-card);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: #374151;
+  transition: var(--transition-fast);
+  min-width: 40px;
+}
+.page-button:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: var(--color-text-light);
+}
+.page-button.active {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  border-color: var(--color-primary);
+}
+.page-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f9fafb;
+}
+.pagination-info {
+  text-align: center;
+  color: #6b7280;
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .search-filter-section {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: stretch;
+  }
+  .search-box {
+    max-width: none;
+  }
+  .filter-buttons {
+    justify-content: center;
+  }
+  .pagination {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+  .page-button {
+    min-width: 36px;
+    padding: var(--spacing-sm) 10px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 480px) {
+  .search-filter-section {
+    padding: var(--spacing-lg);
+  }
+  .filter-buttons {
+    flex-direction: column;
+  }
+  .pagination {
+    font-size: var(--font-size-xs);
+  }
+  .pagination-info {
+    font-size: var(--font-size-xs);
+  }
+}

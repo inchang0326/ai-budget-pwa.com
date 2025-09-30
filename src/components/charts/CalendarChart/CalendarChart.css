@@ -1,0 +1,102 @@
+.calendar-chart-section {
+  width: 100%;
+  align-items: center;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-sm);
+}
+.calendar-header {
+  padding: var(--spacing-md);
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+}
+.calendar-day {
+  padding: var(--spacing-md) var(--spacing-sm);
+  min-height: 80px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-xs);
+  transition: var(--transition-fast);
+}
+.calendar-day:hover {
+  background: var(--color-background-hover);
+  border-color: #cbd5e0;
+}
+.calendar-empty {
+  min-height: 80px;
+}
+.day-number {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+.day-income {
+  color: var(--color-income);
+  font-weight: 500;
+}
+.day-expense {
+  color: var(--color-expense);
+  font-weight: 500;
+}
+.calendar-tooltip {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--color-text-white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-xs);
+  z-index: var(--z-tooltip);
+  min-width: 200px;
+  max-width: 300px;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+.tooltip-header {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.tooltip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  padding: 4px 0;
+}
+.tooltip-bottom {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.tooltip-category {
+  flex: 1;
+  margin-right: 12px;
+  opacity: 0.9;
+}
+.tooltip-amount.income {
+  color: var(--color-success);
+  font-weight: bold;
+}
+.tooltip-amount.expense {
+  color: var(--color-expense);
+  font-weight: bold;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .calendar-tooltip {
+    font-size: 11px;
+    min-width: 150px;
+    max-width: 250px;
+  }
+  .tooltip-header {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,69 @@
+import { useState } from "react";
+import type { Transaction, ChartType, DateRangeType } from "../../types";
+import { CHART_OPTIONS, CHART_TYPES } from "../../types";
+import CalendarChart from "./CalendarChart/CalendarChart";
+import WordCloudChart from "./WordCloudChart/WordCloudChart";
+import PieChart from "./PieChart/PieChart";
+import BarChart from "./BarChart/BarChart";
+import "./ChartContainer.css";
+import { useBudgetContext } from "../../hooks/useBudgetContext";
+
+const ChartContainer = () => {
+  console.log("ChartContainer Rendering");
+
+  const { states } = useBudgetContext();
+  const transactions: Array<Transaction> = states.transactions;
+  const selectedDate: DateRangeType = states.selectedDate;
+
+  const [selectedChart, setSelectedChart] = useState<ChartType>(
+    CHART_TYPES.CALENDAR
+  );
+
+  const renderChart = () => {
+    switch (selectedChart) {
+      case CHART_TYPES.CALENDAR:
+        return (
+          <CalendarChart
+            transactions={transactions}
+            selectedDate={selectedDate}
+          />
+        );
+      case CHART_TYPES.WORDCLOUD:
+        return <WordCloudChart transactions={transactions} />;
+      case CHART_TYPES.PIE:
+        return <PieChart transactions={transactions} />;
+      case CHART_TYPES.BAR:
+        return <BarChart transactions={transactions} />;
+      default:
+        return (
+          <CalendarChart
+            transactions={transactions}
+            selectedDate={selectedDate}
+          />
+        );
+    }
+  };
+
+  return (
+    <div className="chart-container">
+      <div className="chart-tabs">
+        {CHART_OPTIONS.map((option) => (
+          <button
+            key={option.type}
+            className={`chart-tab ${
+              selectedChart === option.type ? "active" : ""
+            }`}
+            onClick={() => setSelectedChart(option.type)}
+          >
+            <span className="chart-icon">{option.icon}</span>
+            <span className="chart-label">{option.label}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="chart-container">{renderChart()}</div>
+    </div>
+  );
+};
+
+export default ChartContainer;

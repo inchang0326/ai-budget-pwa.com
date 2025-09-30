@@ -1,0 +1,70 @@
+:root {
+  /* 색상 변수 */
+  --color-balance: #1e40af;
+  --color-income: #059669;
+  --color-expense: #3b82f6;
+  --color-primary: #667eea;
+  --color-primary-dark: #5a67d8;
+  --color-secondary: #764ba2;
+  --color-success: #10b981;
+  --color-success-dark: #059669;
+  --color-danger: #ef4444;
+  --color-danger-dark: #dc2626;
+  --color-warning: #f59e0b;
+  --color-info: #06b6d4;
+
+  /* 텍스트 색상 */
+  --color-text: #1a202c;
+  --color-text-muted: #64748b;
+  --color-text-light: #9ca3af;
+  --color-text-white: #ffffff;
+
+  /* 배경 색상 */
+  --color-background: #f8fafc;
+  --color-background-card: #ffffff;
+  --color-background-muted: #f1f5f9;
+  --color-background-hover: #f8fafc;
+
+  /* 보더 색상 */
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-border-focus: rgba(102, 126, 234, 0.3);
+
+  /* 크기 변수 */
+  --border-radius-sm: 6px;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  /* 여백 변수 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+
+  /* 폰트 크기 */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+
+  /* 그림자 */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* 전환 효과 */
+  --transition-fast: all 0.2s ease;
+  --transition-normal: all 0.3s ease;
+
+  /* Z-index */
+  --z-tooltip: 1000;
+  --z-modal: 2000;
+}

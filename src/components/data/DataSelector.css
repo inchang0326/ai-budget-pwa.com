@@ -1,0 +1,67 @@
+.data-selector {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.data-select {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text-white);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  width: 90px;
+}
+
+.data-select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.data-select option {
+  color: var(--color-text);
+  background: var(--color-background-card);
+}
+
+.sync-button {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  gap: var(--spacing-sm);
+  width: 90px;
+}
+.sync-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-dark), #6b46c1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.sync-button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sync-button:disabled .loading {
+  animation: spin 1s linear infinite;
+}
+.sync-button-img {
+  height: 15px;
+}
+/* 반응형 */
+@media (max-width: 480px) {
+  .data-selector {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: auto;
+    padding: 10px var(--spacing-md);
+    font-size: var(--font-size-xs);
+  }
+}

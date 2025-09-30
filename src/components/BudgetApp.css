@@ -1,0 +1,168 @@
+@import "../styles/variables.css";
+@import "../styles/utilities.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.budget-app {
+  min-height: 100vh;
+  padding: var(--spacing-xl);
+}
+
+.budget-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--color-background-card);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.app-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+  color: var(--color-text-white);
+  padding: var(--spacing-2xl) var(--spacing-3xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.legend-color {
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  border-radius: var(--spacing-xs);
+}
+
+.legend-label {
+  flex: 1;
+  font-weight: 500;
+}
+
+.legend-amount {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* BudgetSummary.css start */
+.summary-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
+  background: var(--color-background);
+}
+
+.summary-card {
+  background: var(--color-background-card);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.summary-amount {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.summary-amount.positive {
+  color: var(--color-success-dark);
+}
+
+.summary-amount.negative {
+  color: var(--color-danger);
+}
+
+.total-balance .summary-amount {
+  color: var(--color-balance);
+}
+/* BudgetSummary.css end */
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .budget-app {
+    padding: var(--spacing-lg);
+  }
+
+  .app-header {
+    padding: var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .app-header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .summary-section {
+    padding: var(--spacing-2xl);
+    gap: var(--spacing-lg);
+  }
+
+  .summary-card {
+    padding: var(--spacing-xl);
+  }
+
+  .chart-section {
+    padding: var(--spacing-2xl);
+  }
+
+  .chart-tabs {
+    flex-wrap: wrap;
+  }
+
+  .chart-tab {
+    min-width: 80px;
+  }
+
+  .date-selector {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-section {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
