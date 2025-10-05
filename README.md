@@ -75,6 +75,7 @@ Developing...
   npm install
   ```
 - *moduleResolution의 bundler 설정으로 인한 의존성 문제 발생 시 조치법
+- IDE에서 프로젝트 TS 버전이 아닌 내장 TS 버전을 사용하면서 발생한 버전 문제
   ```
   .ts 파일 선택 → Shift + Command + P → TypeScript: Select TypeScript Version → Use Workspace Version
   ```
