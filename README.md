@@ -74,6 +74,10 @@ Developing...
   ```
   npm install
   ```
+- *moduleResolution의 bundler 설정으로 인한 의존성 문제 발생 시 조치법
+  ```
+  .ts 파일 선택 → Shift + Command + P → TypeScript: Select TypeScript Version → Use Workspace Version
+  ```
 - DEV 서버 실행
   ```
   npm run dev
