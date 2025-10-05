@@ -67,3 +67,19 @@ AI studying...
 
 ### Auth
 Developing...
+
+## Getting Started
+
+- node_modules 설치
+  ```
+  npm install
+  ```
+- DEV 서버 실행
+  ```
+  npm run dev
+  ```
+- PWA 빌드 및 실행
+  ```
+  - npm run build
+  - npm run preview
+  ```
