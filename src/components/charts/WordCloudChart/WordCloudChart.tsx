@@ -21,24 +21,25 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
   const [words, setWords] = useState<WordItem[]>([]);
 
   useEffect(() => {
-    const categoryMap = new Map<
+    const map = new Map<
       string,
-      { amount: number; type: TransactionType }
+      { amount: number; type: TransactionType; category: string }
     >();
 
     transactions.forEach((transaction) => {
-      const existing = categoryMap.get(transaction.category);
+      const existing = map.get(transaction.type + transaction.category);
       if (existing) {
         existing.amount += transaction.amount;
       } else {
-        categoryMap.set(transaction.category, {
+        map.set(transaction.type + transaction.category, {
           amount: transaction.amount,
           type: transaction.type,
+          category: transaction.category,
         });
       }
     });
 
-    const data = Array.from(categoryMap.entries());
+    const data = Array.from(map.entries());
     if (data.length === 0) {
       setWords([]);
       return;
@@ -52,9 +53,9 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
     const radius = Math.min(containerWidth, containerHeight) / 3;
     const angleStep = (2 * Math.PI) / data.length;
 
-    const newWords: WordItem[] = data.map(([category, categoryData], index) => {
-      const size = 16 + (categoryData.amount / maxAmount) * 40;
-      const angle = index * angleStep + Math.random() * 0.5; // 약간의 랜덤성 추가
+    const newWords: WordItem[] = data.map(([k, v], i) => {
+      const size = 16 + (v.amount / maxAmount) * 40;
+      const angle = i * angleStep + Math.random() * 0.5; // 약간의 랜덤성 추가
       const r = radius * (0.3 + Math.random() * 0.7); // 반지름에도 변화 추가
 
       // 원형 배치에서 약간의 변형
@@ -66,12 +67,9 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
       const rotation = rotations[Math.floor(Math.random() * rotations.length)];
 
       return {
-        text: category,
+        text: v.category,
         size,
-        color:
-          categoryData.type === TRANSACTION_TYPES.INCOME
-            ? "#059669"
-            : "#3b82f6",
+        color: v.type === TRANSACTION_TYPES.INCOME ? "#059669" : "#3b82f6",
         x,
         y,
         rotation,
