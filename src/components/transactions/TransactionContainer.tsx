@@ -12,9 +12,6 @@ const TransactionContainer = () => {
 
   const { states, actions } = useBudgetContext();
   const transactions = states.transactions;
-  const totalCount = states.totalCount;
-  const totalPage = states.totalPage;
-  const currentPage = states.currentPage;
 
   const [formData, setFormData] = useState<Omit<Transaction, "id">>({
     type: TRANSACTION_TYPES.EXPENSE,
@@ -112,10 +109,6 @@ const TransactionContainer = () => {
       )}
 
       <TransactionList
-        totalCount={totalCount}
-        totalPage={totalPage}
-        currentPage={currentPage}
-        onPageChange={actions.changePage}
         transactions={transactions}
         handleOnClickEdit={handleOnClickEdit}
         onDelete={actions.deleteTransaction}

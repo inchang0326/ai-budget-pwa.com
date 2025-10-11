@@ -7,25 +7,19 @@ import dayjs from "dayjs";
 import { ITEM_LIMIT_COUNT_PER_PAGE } from "../../../const";
 
 interface TransactionListProps {
-  totalCount: number;
-  totalPage: number;
-  currentPage: number;
-  onPageChange: (currentPgae: number) => void;
   transactions: Transaction[];
   handleOnClickEdit: (transaction: Transaction) => void;
   onDelete: (id: string) => void;
 }
 
 const TransactionList = ({
-  totalCount,
-  totalPage,
-  currentPage,
-  onPageChange,
   transactions,
   handleOnClickEdit,
   onDelete,
 }: TransactionListProps) => {
   console.log("TransactionList Rendering");
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchType, setSearchType] = useState<TransactionType>(
     TRANSACTION_TYPES.ALL
   );
@@ -57,15 +51,19 @@ const TransactionList = ({
 
   const handleSearchTypeChange = useCallback((type: TransactionType) => {
     setSearchType(type);
-    onPageChange(1);
+    setCurrentPage(1);
   }, []);
 
   const handleSearchTermChange = useCallback((term: string) => {
     setSearchTerm(term);
-    1;
+    setCurrentPage(1);
   }, []);
 
-  /* for paginatiin */
+  /* for pagination */
+  const totalPages = Math.ceil(
+    filteredTransactions.length / ITEM_LIMIT_COUNT_PER_PAGE
+  );
+
   const paginatedTransactions = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEM_LIMIT_COUNT_PER_PAGE;
     return filteredTransactions.slice(
@@ -75,7 +73,7 @@ const TransactionList = ({
   }, [filteredTransactions, currentPage]);
 
   const handlePageChange = (page: number) => {
-    onPageChange(page);
+    setCurrentPage(page);
   };
 
   return (
@@ -145,7 +143,7 @@ const TransactionList = ({
             </div>
 
             {/* Pages */}
-            {totalPage > 1 && (
+            {totalPages > 1 && (
               <div className="pagination">
                 <button
                   className="page-button"
@@ -155,7 +153,7 @@ const TransactionList = ({
                   ‹ 이전
                 </button>
 
-                {Array.from({ length: totalPage }, (_, i) => i + 1).map(
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <button
                       key={page}
@@ -172,7 +170,7 @@ const TransactionList = ({
                 <button
                   className="page-button"
                   onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPage}
+                  disabled={currentPage === totalPages}
                 >
                   다음 ›
                 </button>
@@ -180,10 +178,13 @@ const TransactionList = ({
             )}
 
             <div className="pagination-info">
-              전체 {totalCount}건 중{" "}
+              전체 {filteredTransactions.length}건 중{" "}
               {(currentPage - 1) * ITEM_LIMIT_COUNT_PER_PAGE + 1}-
-              {Math.min(currentPage * ITEM_LIMIT_COUNT_PER_PAGE, totalCount)}건
-              표시
+              {Math.min(
+                currentPage * ITEM_LIMIT_COUNT_PER_PAGE,
+                filteredTransactions.length
+              )}
+              건 표시
             </div>
           </>
         )}

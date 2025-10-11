@@ -11,21 +11,16 @@ import {
   useSyncTransactions,
 } from "../hooks/useTransactions";
 import { keepPreviousData } from "@tanstack/react-query";
-import { ITEM_LIMIT_COUNT_PER_PAGE } from "../const";
 import dayjs from "dayjs";
 import isEqual from "lodash/isEqual"; // 깊은 비교 연산자
 
 type BudgetStatesType = {
   selectedDate: DateRangeType;
-  totalCount: number; // read-only
-  currentPage: number;
-  totalPage: number; // read-only
   transactions: Array<Transaction>;
 };
 
 const BUDGET_ACTION = {
   CHG_DATE: "CHANGE_DATE" as const,
-  CHG_PAGE: "CHANGE_PAGE" as const,
   SEL_TRAN: "SELECT_TRANSACTIONS" as const,
   ADD_TRAN: "ADD_TRANSACTION" as const,
   DEL_TRAN: "DELETE_TRANSACTION" as const,
@@ -38,10 +33,6 @@ const BudgetActions = {
   changeDate: (selectedDate: DateRangeType) => ({
     type: BUDGET_ACTION.CHG_DATE,
     payload: { selectedDate: selectedDate },
-  }),
-  changePage: (currentPage: number) => ({
-    type: BUDGET_ACTION.CHG_PAGE,
-    payload: { currentPage: currentPage },
   }),
   selectTransactions: (transactions: Array<Transaction>) => ({
     type: BUDGET_ACTION.SEL_TRAN,
@@ -93,8 +84,6 @@ const reducer = (states: BudgetStatesType, actions: BudgetActionsType) => {
           },
         };
       else return states;
-    case BUDGET_ACTION.CHG_PAGE:
-      return { ...states, currentPage: actions.payload.currentPage };
     case BUDGET_ACTION.SEL_TRAN:
       return { ...states, transactions: actions.payload.transactions };
     default:
@@ -107,9 +96,6 @@ const initalBudgetAppStates: BudgetStatesType = {
     year: dayjs().year(),
     month: dayjs().month() + 1,
   },
-  totalCount: 0, // read-only
-  currentPage: 1,
-  totalPage: 1, // read-only
   transactions: [],
 };
 
@@ -117,7 +103,6 @@ export interface BudgetContextType {
   states: BudgetStatesType;
   actions: {
     changeDate: (currentDate: DateRangeType) => void;
-    changePage: (currentPage: number) => void;
     addTransaction: (transaction: Omit<Transaction, "id">) => void;
     deleteTransaction: (id: string) => void;
     deleteAllTransactions: () => void;
@@ -142,10 +127,9 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   // 참고2: useQuery의 데이터 정책은 즉시 로딩, useSuspenseQuery의 데이터 정책은 대기 후 로딩이라, useQuery는 데이터가 보장되지 않아 직접 가드를 해야 함
   const { data } = useTransactions(
     {
+      userId: "1",
       year: states.selectedDate.year,
       month: states.selectedDate.month,
-      page: states.currentPage,
-      limit: ITEM_LIMIT_COUNT_PER_PAGE,
     },
     /**
      *  목적: 페이징 과정 등 Fallback UI 노출 시, 이전 데이터를 보여주기 위함
@@ -161,35 +145,18 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
     // undefined data dispatch 및 same data dispatch 방지
     // undefined data 가드, 만약 useSuspenseQuery를 사용했다면 가드가 없어도 됨
     if (data) {
-      const byId = (a: Transaction, b: Transaction) => a.id.localeCompare(b.id);
-      const sortedStatesTransactions = [...states.transactions].sort(byId);
-      const sortedDataItems = [...data.items].sort(byId);
-      if (!isEqual(sortedStatesTransactions, sortedDataItems)) {
-        dispatch(BudgetActions.selectTransactions(sortedDataItems));
+      if (!isEqual(states.transactions, data)) {
+        dispatch(BudgetActions.selectTransactions(data.items));
       }
     }
   }, [data]);
 
   const memoizedStates: BudgetStatesType = useMemo(() => {
-    return {
-      ...states,
-      totalCount: data?.totalCount ?? 1,
-      totalPage: data?.totalPages ?? 1,
-    };
-  }, [
-    states.selectedDate,
-    states.totalCount,
-    states.currentPage,
-    states.totalPage,
-    states.transactions,
-  ]);
+    return { ...states };
+  }, [states.selectedDate, states.transactions]);
 
   const changeDate = useCallback((currentDate: DateRangeType) => {
     dispatch(BudgetActions.changeDate(currentDate));
-  }, []);
-
-  const changePage = useCallback((currentPage: number) => {
-    dispatch(BudgetActions.changePage(currentPage));
   }, []);
 
   // 쿼리 옵션이 바뀌지 않는 이상 참조가 유지 됨
@@ -247,7 +214,6 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
     states: memoizedStates,
     actions: {
       changeDate,
-      changePage,
       addTransaction,
       deleteTransaction,
       deleteAllTransactions,

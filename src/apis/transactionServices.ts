@@ -8,10 +8,10 @@ import type {
 } from "../types/apis";
 
 const ENDPOINTS = {
-  TRANSACTIONS: "/transactions",
-  TRANSACTION_BY_ID: (id: string) => `/transactions/${id}`,
-  DELETE_ALL: "/transactions/delete-all",
-  SYNC: "/transactions/sync",
+  TRANSACTIONS: "/budget/transactions",
+  TRANSACTION_BY_ID: (id: string) => `/budget/transactions/${id}`,
+  DELETE_ALL: "/budget/transactions/delete-all",
+  SYNC: "/budget/transactions/sync",
 } as const;
 
 // 거래 내역 서비스 클래스
