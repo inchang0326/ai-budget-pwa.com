@@ -49,7 +49,6 @@ export interface DeleteTransactionRequest {
 }
 
 export interface DeleteAllTransactionRequest {
-  userId: string;
   ids: Array<string>;
 }
 
