@@ -12,6 +12,7 @@ import type {
 const ENDPOINTS = {
   TRANSACTIONS: "/budget/transactions",
   TRANSACTION_BY_ID: (id: string) => `/budget/transactions/${id}`,
+  DELETE: "/budget/transaction/delete",
   DELETE_ALL: "/budget/transactions/delete-all",
   SYNC: "/budget/transactions/sync",
 } as const;
@@ -59,7 +60,7 @@ export class TransactionService {
   static async deleteTransaction(
     data: DeleteTransactionRequest
   ): Promise<void> {
-    return api.post<void>(ENDPOINTS.TRANSACTIONS, data);
+    return api.post<void>(ENDPOINTS.DELETE, data);
   }
 
   // 모든 거래 내역 삭제
