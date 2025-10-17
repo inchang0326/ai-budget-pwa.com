@@ -73,7 +73,10 @@ const TransactionContainer = () => {
         "모든 거래 내역을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
       )
     ) {
-      actions.deleteAllTransactions();
+      const userId: string = transactions[0].userId ?? "";
+      const ids: Array<string> = transactions.map((t) => t.id);
+
+      actions.deleteAllTransactions(userId, ids);
       handleOnClickCancel();
     }
   };

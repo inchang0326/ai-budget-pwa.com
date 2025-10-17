@@ -105,7 +105,7 @@ export interface BudgetContextType {
     changeDate: (currentDate: DateRangeType) => void;
     addTransaction: (transaction: Omit<Transaction, "id">) => void;
     deleteTransaction: (id: string) => void;
-    deleteAllTransactions: () => void;
+    deleteAllTransactions: (userid: string, ids: Array<string>) => void;
     editTransaction: (id: string, updated: Omit<Transaction, "id">) => void;
     syncTransactions: () => void;
   };
@@ -144,10 +144,8 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   useEffect(() => {
     // undefined data dispatch 및 same data dispatch 방지
     // undefined data 가드, 만약 useSuspenseQuery를 사용했다면 가드가 없어도 됨
-    if (data) {
-      if (!isEqual(states.transactions, data)) {
-        dispatch(BudgetActions.selectTransactions(data.items));
-      }
+    if (data && !isEqual(states.transactions, data)) {
+      dispatch(BudgetActions.selectTransactions(data.items));
     }
   }, [data]);
 
@@ -181,14 +179,17 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
 
   const deleteTransaction = useCallback(
     async (id: string) => {
-      await deleteMutation.mutateAsync(id);
+      await deleteMutation.mutateAsync({ id });
     },
     [deleteMutation]
   );
 
-  const deleteAllTransactions = useCallback(async () => {
-    await deleteAllMutation.mutateAsync();
-  }, [deleteAllMutation]);
+  const deleteAllTransactions = useCallback(
+    async (userId: string, ids: Array<string>) => {
+      await deleteAllMutation.mutateAsync({ userId, ids });
+    },
+    [deleteAllMutation]
+  );
 
   const editTransaction = useCallback(
     async (id: string, transaction: Omit<Transaction, "id">) => {

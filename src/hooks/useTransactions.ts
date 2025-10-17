@@ -14,6 +14,8 @@ import type {
   UpdateTransactionRequest,
   TransactionFilters,
   PaginatedResponse,
+  DeleteTransactionRequest,
+  DeleteAllTransactionRequest,
 } from "../types/apis";
 
 // queryKey, stale time, cache time 등 global 하게 적용하여 동일 기준을 가져가야 함
@@ -271,15 +273,25 @@ export const useSuspenseUpdateTransaction = () => {
 // 거래 내역 삭제
 interface DeleteTransactionContext {
   previousTransaction?: Transaction;
-  deletedId: string;
+  id: string;
 }
 
 export const useDeleteTransaction = (
-  options?: UseMutationOptions<void, Error, string, DeleteTransactionContext>
+  options?: UseMutationOptions<
+    void,
+    Error,
+    DeleteTransactionRequest,
+    DeleteTransactionContext
+  >
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation<void, Error, string, DeleteTransactionContext>({
+  return useMutation<
+    void,
+    Error,
+    DeleteTransactionRequest,
+    DeleteTransactionContext
+  >({
     mutationFn: TransactionService.deleteTransaction,
     /**
      *  서버 요청 직전에 실행되어, 다음과 같은 기능을 함
@@ -288,17 +300,19 @@ export const useDeleteTransaction = (
      *  - cancelQueries: 기존 queryKey 요청 취소 (낙관적 업데이트 수행했지만, 기존 요청의 지연 응답으로 인해, 낙관적 업데이트 이전 데이터로 보여질 수 있음)
      *  - removeQueires: 기존 캐시된 queryKey 및 데이터 제거 (백엔드상 데이터가 제거됐지만, 프론트엔드상 캐싱 데이터를 여전히 확인 가능한 정합성 문제 발생)
      */
-    onMutate: async (deletedId): Promise<DeleteTransactionContext> => {
+    onMutate: async (
+      data: DeleteTransactionRequest
+    ): Promise<DeleteTransactionContext> => {
       // 롤백 준비 (이전 스냅샷 저장)
       const previousTransaction = queryClient.getQueryData<Transaction>(
-        queryKeys.detail(deletedId)
+        queryKeys.detail(data.id)
       );
 
       queryClient.removeQueries({
-        queryKey: queryKeys.detail(deletedId),
+        queryKey: queryKeys.detail(data.id),
       });
 
-      return { previousTransaction, deletedId };
+      return { previousTransaction, id: data.id };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -306,13 +320,13 @@ export const useDeleteTransaction = (
         exact: false,
       });
     },
-    onError: (error, deletedId, context) => {
+    onError: (error, data, context) => {
       console.error("거래 내역 삭제 실패:", error);
 
       // 롤백
       if (context?.previousTransaction) {
         queryClient.setQueryData(
-          queryKeys.detail(deletedId),
+          queryKeys.detail(context.id),
           context.previousTransaction
         );
       }
@@ -325,9 +339,9 @@ export const useDeleteTransaction = (
 export const useSuspenseDeleteTransaction = () => {
   const mutation = useDeleteTransaction();
 
-  const mutateWithSuspense = (id: string) => {
+  const mutateWithSuspense = (data: DeleteTransactionRequest) => {
     return new Promise<void>((resolve, reject) => {
-      mutation.mutate(id, {
+      mutation.mutate(data, {
         onSuccess: resolve,
         onError: reject,
       });
@@ -342,21 +356,61 @@ export const useSuspenseDeleteTransaction = () => {
 };
 
 // 모든 거래 내역 삭제
+interface DeleteAllTransactionContext {
+  previousTransactions?: Array<Transaction | undefined>;
+  ids: Array<string>;
+}
+
 export const useDeleteAllTransactions = (
-  options?: UseMutationOptions<void, Error>
+  options?: UseMutationOptions<
+    void,
+    Error,
+    DeleteAllTransactionRequest,
+    DeleteAllTransactionContext
+  >
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<
+    void,
+    Error,
+    DeleteAllTransactionRequest,
+    DeleteAllTransactionContext
+  >({
     mutationFn: TransactionService.deleteAllTransactions,
+    onMutate: async (
+      data: DeleteAllTransactionRequest
+    ): Promise<DeleteAllTransactionContext> => {
+      const previousTransactions: Array<Transaction | undefined> = data.ids.map(
+        (id) => queryClient.getQueryData<Transaction>(queryKeys.detail(id))
+      );
+
+      for (const id of data.ids) {
+        queryClient.removeQueries({
+          queryKey: queryKeys.detail(id),
+        });
+      }
+
+      return { previousTransactions, ids: data.ids };
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.lists(),
         exact: false,
       });
     },
-    onError: (error) => {
+    onError: (error, data, context) => {
       console.error("모든 거래 내역 삭제 실패:", error);
+
+      // 롤백
+      if (context?.previousTransactions) {
+        context.previousTransactions.forEach((transaction, index) => {
+          const id = context.ids[index];
+          if (transaction !== undefined) {
+            queryClient.setQueryData(queryKeys.detail(id), transaction);
+          }
+        });
+      }
     },
     ...options,
   });

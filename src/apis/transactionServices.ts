@@ -2,9 +2,11 @@ import { api } from "./client";
 import type {
   Transaction,
   CreateTransactionRequest,
+  DeleteTransactionRequest,
   UpdateTransactionRequest,
   TransactionFilters,
   PaginatedResponse,
+  DeleteAllTransactionRequest,
 } from "../types/apis";
 
 const ENDPOINTS = {
@@ -28,7 +30,6 @@ export class TransactionService {
 
   // 단일 거래 내역 조회
   static async retrieveTransaction(id: string): Promise<Transaction> {
-    if (!id) throw new Error("거래 ID가 필요합니다.");
     return api.get<Transaction>(ENDPOINTS.TRANSACTION_BY_ID(id));
   }
 
@@ -44,7 +45,6 @@ export class TransactionService {
     id: string,
     data: UpdateTransactionRequest
   ): Promise<Transaction> {
-    if (!id) throw new Error("거래 ID가 필요합니다.");
     /**
      *  update 요청과 멱등성
      *  - update에 대해 전체 교체 => put method 및 멱등성 보장 O(동일한 연산을 여러 번 수행해도 결과가 달라지지 않는 성질)
@@ -56,14 +56,17 @@ export class TransactionService {
   }
 
   // 거래 내역 삭제
-  static async deleteTransaction(id: string): Promise<void> {
-    if (!id) throw new Error("거래 ID가 필요합니다.");
-    return api.delete<void>(ENDPOINTS.TRANSACTION_BY_ID(id));
+  static async deleteTransaction(
+    data: DeleteTransactionRequest
+  ): Promise<void> {
+    return api.post<void>(ENDPOINTS.TRANSACTIONS, data.id);
   }
 
   // 모든 거래 내역 삭제
-  static async deleteAllTransactions(): Promise<void> {
-    return api.delete<void>(ENDPOINTS.DELETE_ALL);
+  static async deleteAllTransactions(
+    data: DeleteAllTransactionRequest
+  ): Promise<void> {
+    return api.post<void>(ENDPOINTS.DELETE_ALL, data.userId);
   }
 
   // 거래 내역 동기화 (외부 계좌 연동)

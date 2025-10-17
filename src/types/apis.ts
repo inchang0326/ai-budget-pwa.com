@@ -45,11 +45,20 @@ export interface CreateTransactionRequest {
   date: string;
 }
 
+export interface DeleteTransactionRequest {
+  id: string;
+}
+
+export interface DeleteAllTransactionRequest {
+  userId: string;
+  ids: Array<string>;
+}
+
 export interface UpdateTransactionRequest
   extends Partial<CreateTransactionRequest> {}
 
 export interface TransactionFilters {
-  userId?: String;
+  userId?: string;
   year?: number;
   month?: number;
   type?: TransactionType;
