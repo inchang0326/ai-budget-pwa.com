@@ -59,14 +59,14 @@ export class TransactionService {
   static async deleteTransaction(
     data: DeleteTransactionRequest
   ): Promise<void> {
-    return api.post<void>(ENDPOINTS.TRANSACTIONS, data.id);
+    return api.post<void>(ENDPOINTS.TRANSACTIONS, data);
   }
 
   // 모든 거래 내역 삭제
   static async deleteAllTransactions(
     data: DeleteAllTransactionRequest
   ): Promise<void> {
-    return api.post<void>(ENDPOINTS.DELETE_ALL, data.userId);
+    return api.post<void>(ENDPOINTS.DELETE_ALL, data);
   }
 
   // 거래 내역 동기화 (외부 계좌 연동)

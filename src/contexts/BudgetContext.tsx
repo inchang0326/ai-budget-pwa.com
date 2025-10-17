@@ -127,7 +127,6 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   // 참고2: useQuery의 데이터 정책은 즉시 로딩, useSuspenseQuery의 데이터 정책은 대기 후 로딩이라, useQuery는 데이터가 보장되지 않아 직접 가드를 해야 함
   const { data } = useTransactions(
     {
-      userId: "1",
       year: states.selectedDate.year,
       month: states.selectedDate.month,
     },

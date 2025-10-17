@@ -34,7 +34,6 @@ export interface Transaction {
   category: string;
   description: string;
   date: string;
-  userId?: string;
 }
 
 export interface CreateTransactionRequest {

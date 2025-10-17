@@ -38,6 +38,9 @@ const tokenManager = {
 // 요청 인터셉터
 apiClient.interceptors.request.use(
   (config) => {
+    config.headers = config.headers ?? {};
+    config.headers["X-USER-ID"] = "00000000000000000001";
+
     const token = tokenManager.get();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
