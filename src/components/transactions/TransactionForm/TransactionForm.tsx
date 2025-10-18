@@ -98,12 +98,13 @@ const TransactionForm = ({
         <div className="form-input for-datepicker">
           <DatePicker
             selected={dayjs(formData.date).toDate()}
-            onChange={(d) =>
-              handleSetFormData({
-                ...formData,
-                date: dayjs(d).format(DATE_TYPES.YYYYMMDD),
-              })
-            }
+            onChange={(d) => {
+              dayjs(d).isValid() &&
+                handleSetFormData({
+                  ...formData,
+                  date: dayjs(d).format(DATE_TYPES.YYYYMMDD),
+                });
+            }}
             dateFormat="yyyy-MM-dd"
             locale={ko}
             placeholderText="YYYY-MM-DD"
