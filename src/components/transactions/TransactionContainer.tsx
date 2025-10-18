@@ -13,7 +13,8 @@ const TransactionContainer = () => {
   const { states, actions } = useBudgetContext();
   const transactions = states.transactions;
 
-  const [formData, setFormData] = useState<Omit<Transaction, "id">>({
+  const [formData, setFormData] = useState<Transaction>({
+    id: "",
     type: TRANSACTION_TYPES.EXPENSE,
     amount: 0,
     category: "",
@@ -23,8 +24,9 @@ const TransactionContainer = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState<boolean>(false);
 
-  const handleSetFormData = useCallback((formData: Omit<Transaction, "id">) => {
+  const handleSetFormData = useCallback((formData: Transaction) => {
     setFormData({
+      id: formData.id,
       type: formData.type,
       amount: formData.amount,
       category: formData.category,
@@ -35,6 +37,7 @@ const TransactionContainer = () => {
 
   const resetFormData = () => {
     setFormData({
+      id: "",
       type: TRANSACTION_TYPES.EXPENSE,
       amount: 0,
       category: "",
@@ -57,6 +60,7 @@ const TransactionContainer = () => {
 
   const handleOnClickEdit = useCallback((transaction: Transaction) => {
     setFormData({
+      id: transaction.id,
       type: transaction.type,
       amount: transaction.amount,
       category: transaction.category,

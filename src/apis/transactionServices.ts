@@ -37,7 +37,6 @@ export class TransactionService {
 
   // 거래 내역 수정
   static async updateTransaction(
-    id: string,
     data: UpdateTransactionRequest
   ): Promise<Transaction> {
     /**

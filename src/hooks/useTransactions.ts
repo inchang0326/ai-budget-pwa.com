@@ -160,7 +160,7 @@ export const useUpdateTransaction = (
   options?: UseMutationOptions<
     Transaction,
     Error,
-    { id: string; data: UpdateTransactionRequest },
+    UpdateTransactionRequest,
     UpdateTransactionContext
   >
 ) => {
@@ -169,14 +169,15 @@ export const useUpdateTransaction = (
   return useMutation<
     Transaction,
     Error,
-    { id: string; data: UpdateTransactionRequest },
+    UpdateTransactionRequest,
     UpdateTransactionContext
   >({
-    mutationFn: ({ id, data }) =>
-      TransactionService.updateTransaction(id, data),
-    onMutate: async ({ id, data }): Promise<UpdateTransactionContext> => {
+    mutationFn: TransactionService.updateTransaction,
+    onMutate: async (
+      data: UpdateTransactionRequest
+    ): Promise<UpdateTransactionContext> => {
       await Promise.all([
-        queryClient.cancelQueries({ queryKey: queryKeys.detail(id) }),
+        queryClient.cancelQueries({ queryKey: queryKeys.detail(data.id) }),
         queryClient.cancelQueries({
           queryKey: queryKeys.lists(),
           exact: false,
@@ -184,31 +185,31 @@ export const useUpdateTransaction = (
       ]);
 
       const previousTransaction = queryClient.getQueryData<Transaction>(
-        queryKeys.detail(id)
+        queryKeys.detail(data.id)
       );
 
       if (previousTransaction) {
         const updatedTransaction = { ...previousTransaction, ...data };
         queryClient.setQueryData<Transaction>(
-          queryKeys.detail(id),
+          queryKeys.detail(data.id),
           updatedTransaction
         );
       }
 
       return { previousTransaction };
     },
-    onError: (error, { id }, context) => {
+    onError: (error, data, context) => {
       console.error("거래 내역 수정 실패:", error);
 
       if (context?.previousTransaction) {
         queryClient.setQueryData(
-          queryKeys.detail(id),
+          queryKeys.detail(data.id),
           context.previousTransaction
         );
       }
     },
-    onSettled: (_, __, { id }) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.detail(id) });
+    onSettled: (_, __, data) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.detail(data.id) });
       queryClient.invalidateQueries({
         queryKey: queryKeys.lists(),
         exact: false,
@@ -222,12 +223,9 @@ export const useUpdateTransaction = (
 export const useSuspenseUpdateTransaction = () => {
   const mutation = useUpdateTransaction();
 
-  const mutateWithSuspense = (variables: {
-    id: string;
-    data: UpdateTransactionRequest;
-  }) => {
+  const mutateWithSuspense = (data: UpdateTransactionRequest) => {
     return new Promise<Transaction>((resolve, reject) => {
-      mutation.mutate(variables, {
+      mutation.mutate(data, {
         onSuccess: resolve,
         onError: reject,
       });

@@ -22,11 +22,6 @@ type BudgetStatesType = {
 const BUDGET_ACTION = {
   CHG_DATE: "CHANGE_DATE" as const,
   SEL_TRAN: "SELECT_TRANSACTIONS" as const,
-  ADD_TRAN: "ADD_TRANSACTION" as const,
-  DEL_TRAN: "DELETE_TRANSACTION" as const,
-  DEL_ALL_TRAN: "DELETE_ALL_TRANSACTIONS" as const,
-  EDT_TRAN: "EDIT_TRANSACTION" as const,
-  SYN_TRAN: "SYNC_TRANSACTIONS" as const,
 } as const;
 
 const BudgetActions = {
@@ -37,26 +32,6 @@ const BudgetActions = {
   selectTransactions: (transactions: Array<Transaction>) => ({
     type: BUDGET_ACTION.SEL_TRAN,
     payload: { transactions: transactions },
-  }),
-  addTransaction: (transaction: Omit<Transaction, "id">) => ({
-    type: BUDGET_ACTION.ADD_TRAN,
-    payload: { transaction: transaction },
-  }),
-  deleteTransaction: (id: string) => ({
-    type: BUDGET_ACTION.DEL_TRAN,
-    payload: { id: id },
-  }),
-  deleteAllTransactions: () => ({
-    type: BUDGET_ACTION.DEL_ALL_TRAN,
-    payload: {},
-  }),
-  editTransaction: (id: string, transaction: Omit<Transaction, "id">) => ({
-    type: BUDGET_ACTION.EDT_TRAN,
-    payload: { id: id, transaction: transaction },
-  }),
-  syncTransactions: () => ({
-    type: BUDGET_ACTION.SYN_TRAN,
-    payload: {},
   }),
 };
 
@@ -106,7 +81,7 @@ export interface BudgetContextType {
     addTransaction: (transaction: Omit<Transaction, "id">) => void;
     deleteTransaction: (id: string) => void;
     deleteAllTransactions: (ids: Array<string>) => void;
-    editTransaction: (id: string, updated: Omit<Transaction, "id">) => void;
+    editTransaction: (transaction: Transaction) => void;
     syncTransactions: () => void;
   };
 }
@@ -191,16 +166,14 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   );
 
   const editTransaction = useCallback(
-    async (id: string, transaction: Omit<Transaction, "id">) => {
+    async (transaction: Transaction) => {
       await updateMutation.mutateAsync({
-        id,
-        data: {
-          type: transaction.type,
-          amount: transaction.amount,
-          category: transaction.category,
-          description: transaction.description,
-          date: transaction.date,
-        },
+        id: transaction.id,
+        type: transaction.type,
+        amount: transaction.amount,
+        category: transaction.category,
+        description: transaction.description,
+        date: transaction.date,
       });
     },
     [updateMutation]

@@ -10,10 +10,10 @@ import { ko } from "date-fns/locale";
 interface TransactionFormProps {
   editingId: string | null;
   handleOnClickCancel: () => void;
-  formData: Omit<Transaction, "id">;
-  handleSetFormData: (formData: Omit<Transaction, "id">) => void;
+  formData: Transaction;
+  handleSetFormData: (formData: Transaction) => void;
   onAdd: (transaction: Omit<Transaction, "id">) => void;
-  onEdit: (id: string, transaction: Omit<Transaction, "id">) => void;
+  onEdit: (transaction: Transaction) => void;
 }
 
 const TransactionForm = ({
@@ -33,6 +33,7 @@ const TransactionForm = ({
     }
 
     const transactionData = {
+      id: formData.id,
       type: formData.type,
       amount: formData.amount,
       category: formData.category,
@@ -41,7 +42,7 @@ const TransactionForm = ({
     };
 
     if (editingId) {
-      onEdit(editingId, transactionData);
+      onEdit(transactionData);
     } else {
       onAdd(transactionData);
     }

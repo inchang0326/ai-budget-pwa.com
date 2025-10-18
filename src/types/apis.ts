@@ -52,8 +52,14 @@ export interface DeleteAllTransactionRequest {
   ids: Array<string>;
 }
 
-export interface UpdateTransactionRequest
-  extends Partial<CreateTransactionRequest> {}
+export interface UpdateTransactionRequest {
+  id: string;
+  type: TransactionType;
+  amount: number;
+  category: string;
+  description: string;
+  date: string;
+}
 
 export interface TransactionFilters {
   userId?: string;
