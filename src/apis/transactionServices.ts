@@ -11,8 +11,7 @@ import type {
 
 const ENDPOINTS = {
   TRANSACTIONS: "/budget/transactions",
-  TRANSACTION_BY_ID: (id: string) => `/budget/transactions/${id}`,
-  DELETE: "/budget/transaction/delete",
+  DELETE: "/budget/transactions/delete",
   DELETE_ALL: "/budget/transactions/delete-all",
   SYNC: "/budget/transactions/sync",
 } as const;
@@ -27,11 +26,6 @@ export class TransactionService {
       ENDPOINTS.TRANSACTIONS,
       filters as Record<string, unknown>
     );
-  }
-
-  // 단일 거래 내역 조회
-  static async retrieveTransaction(id: string): Promise<Transaction> {
-    return api.get<Transaction>(ENDPOINTS.TRANSACTION_BY_ID(id));
   }
 
   // 거래 내역 생성
@@ -53,7 +47,7 @@ export class TransactionService {
      *    - 변경되는 값에 대해 상대적으로 설정하는 것이 아닌 절대적으로 설정하기(ex. age += 1 X / age = 33)
      *  - update에 대해 post method로도 구현이 가능하지만, REST API 설계 기준 상 update는 put 또는 patch method 임
      */
-    return api.put<Transaction>(ENDPOINTS.TRANSACTION_BY_ID(id), data);
+    return api.put<Transaction>(ENDPOINTS.TRANSACTIONS, data);
   }
 
   // 거래 내역 삭제

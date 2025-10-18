@@ -105,35 +105,6 @@ export const useSuspenseInfiniteTransactions = (
   });
 };
 
-// 단일 거래 내역 조회
-export const useTransaction = (
-  id: string,
-  options?: Omit<
-    UseQueryOptions<Transaction, Error>,
-    "queryKey" | "queryFn" | "enabled"
-  >
-) => {
-  return useQuery({
-    queryKey: queryKeys.detail(id),
-    queryFn: () => TransactionService.retrieveTransaction(id),
-    enabled: Boolean(id),
-    staleTime: DEFAULT_STALE_TIME * 2,
-    gcTime: DEFAULT_GC_TIME * 2,
-    retry: 3,
-    ...options,
-  });
-};
-
-// (Suspense) 단일 거래 내역 조회
-export const useSuspenseTransaction = (id: string) => {
-  return useSuspenseQuery({
-    queryKey: queryKeys.detail(id),
-    queryFn: () => TransactionService.retrieveTransaction(id),
-    staleTime: DEFAULT_STALE_TIME * 2,
-    gcTime: DEFAULT_GC_TIME * 2,
-  });
-};
-
 // 거래 내역 생성
 export const useCreateTransaction = (
   options?: UseMutationOptions<Transaction, Error, CreateTransactionRequest>
