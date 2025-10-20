@@ -13,8 +13,8 @@ Developed with react-ts on Vite
 
 - Basic functions: create/retrieve/update/delete transactions
 - Budget visualization with charts(calendar, wordcloud, pie, bar)
-- Remote finance accounts budget synchronization
-- AI-driven investment recommendation based on the balance
+- Remote finance cards payment history synchronization
+- AI-driven investment recommendation based on the budget
 
 ## Web Structure
 
