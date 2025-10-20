@@ -68,7 +68,7 @@ AI studying...
 ### Auth
 Developing...
 
-## Getting Started to Dev
+## Getting Started to dev
 
 - node_modules 설치
   ```
