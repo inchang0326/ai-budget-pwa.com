@@ -48,6 +48,7 @@ export const useSyncCardHistory = (
   return useMutation({
     mutationFn: CardService.syncCardHistory,
     onSuccess: () => {
+      // invalidateQueries의 경우 활성 쿼리는 백그라운드 refetch, 비활성 쿼리는 stale 처리 후 다시 사용할 떄 refetch
       queryClient.invalidateQueries({
         queryKey: cardsQueryKeys.lists(),
         exact: false,
@@ -57,9 +58,11 @@ export const useSyncCardHistory = (
         queryKey: transactionsQueryKeys.lists(),
         exact: false,
       });
+      alert("카드 동기화를 완료했습니다.");
     },
     onError: (error) => {
       console.error("카드 사용 내역 동기화 실패:", error);
+      alert("카드 동기화가 실패했습니다.");
     },
     ...options,
   });

@@ -20,7 +20,6 @@ export class CardService {
   static async syncCardHistory(
     data: SyncOpenBankingCardHistoryRequest
   ): Promise<void> {
-    console.log(data);
     return api.post<void>(ENDPOINTS.CARDS, data);
   }
 }

@@ -34,6 +34,8 @@ export interface Transaction {
   category: string;
   description: string;
   date: string;
+  cardComapnyCode?: string;
+  cardNo?: string;
 }
 
 export interface CreateTransactionRequest {

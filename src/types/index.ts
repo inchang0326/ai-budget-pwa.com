@@ -39,6 +39,8 @@ export type Transaction = {
   category: string;
   description: string;
   date: string;
+  cardCompanyCode?: string;
+  cardNo?: string;
 };
 
 export type OpenBankingCardType = {

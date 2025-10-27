@@ -29,6 +29,10 @@ const TransactionItem = ({
   return (
     <div className="transaction-item">
       <div className="transaction-info">
+        <div className="transaction-card-company">
+          {transaction.cardCompanyCode}
+        </div>
+        <div className="transaction-card-no">{transaction.cardNo}</div>
         <div className="transaction-category">{transaction.category}</div>
         <div className="transaction-description">{transaction.description}</div>
       </div>
@@ -40,7 +44,12 @@ const TransactionItem = ({
         <div className="transaction-date">{transaction.date}</div>
       </div>
       <div className="transaction-actions">
-        <button className="edit-button" onClick={handleEdit} title="수정">
+        <button
+          className="edit-button"
+          onClick={handleEdit}
+          title="수정"
+          disabled={transaction.cardNo ? true : false}
+        >
           ✏️
         </button>
         <button className="delete-button" onClick={handleDelete} title="삭제">

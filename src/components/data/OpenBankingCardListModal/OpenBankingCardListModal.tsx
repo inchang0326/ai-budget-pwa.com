@@ -219,6 +219,7 @@ const OpenBankingCardListModal = ({
                     `선택한 ${selectedCardList.size}개의 카드를 동기화하시겠습니까?`
                   )
                 ) {
+                  setShowModal(false);
                   actions.syncCardHistory(selectedCardList);
                 }
               }}
