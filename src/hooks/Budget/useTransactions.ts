@@ -7,7 +7,7 @@ import {
   type UseQueryOptions,
   type UseMutationOptions,
 } from "@tanstack/react-query";
-import { TransactionService } from "../apis/transactionServices";
+import { TransactionService } from "../../apis/transactionServices";
 import type {
   Transaction,
   CreateTransactionRequest,
@@ -16,21 +16,24 @@ import type {
   PaginatedResponse,
   DeleteTransactionRequest,
   DeleteAllTransactionRequest,
-} from "../types/apis";
+} from "../../types/apis";
 
 // queryKey, stale time, cache time 등 global 하게 적용하여 동일 기준을 가져가야 함
 // useQuery 등 조회 쿼리에서 사용하는 key로 데이터의 fresh/stale 확인 및 cache 조회 위한 기준 key
-export const queryKeys = {
+export const transactionsQueryKeys = {
   all: ["transactions"],
-  lists: () => [...queryKeys.all, "list"],
-  list: (filters: TransactionFilters) => [...queryKeys.lists(), { filters }],
+  lists: () => [...transactionsQueryKeys.all, "list"],
+  list: (filters: TransactionFilters) => [
+    ...transactionsQueryKeys.lists(),
+    { filters },
+  ],
   infinite: (filters: Omit<TransactionFilters, "page">, limit: number) => [
-    ...queryKeys.lists(),
+    ...transactionsQueryKeys.lists(),
     "infinite",
     { filters, limit },
   ],
-  details: () => [...queryKeys.all, "detail"],
-  detail: (id: string) => [...queryKeys.details(), id],
+  details: () => [...transactionsQueryKeys.all, "detail"],
+  detail: (id: string) => [...transactionsQueryKeys.details(), id],
 };
 // 참고: https://velog.io/@taewo/React-Query%EC%9D%98-Stale-Time-Cache-Time
 /**
@@ -46,7 +49,7 @@ export const queryKeys = {
 const DEFAULT_STALE_TIME = 0 * 5 * 60 * 1000;
 /**
  *  fresh 상태의 데이터를 caching 해두는 시간이다.
- *  예를들어, stale time 내 동일한 react-query의 재 요청이라면, cached fresh 데이터를 재활용하 수 있도록 한다.
+ *  예를들어, stale time 내 동일한 react-query의 재 요청이라면, cached fresh 데이터를 재활용 할 수 있도록 한다.
  */
 const DEFAULT_GC_TIME = 10 * 60 * 1000;
 // 만약 stale time이 0이라면(디폴트), react-query의 캐싱 기능을 제대로 활용할 수 없다.
@@ -62,7 +65,7 @@ export const useTransactions = (
   >
 ) => {
   return useQuery({
-    queryKey: queryKeys.list(filters),
+    queryKey: transactionsQueryKeys.list(filters),
     queryFn: () => TransactionService.retrieveTransactions(filters),
     staleTime: DEFAULT_STALE_TIME,
     gcTime: DEFAULT_GC_TIME,
@@ -74,7 +77,7 @@ export const useTransactions = (
 // (Suspense) 거래 내역 목록 조회
 export const useSuspenseTransactions = (filters: TransactionFilters = {}) => {
   return useSuspenseQuery({
-    queryKey: queryKeys.list(filters),
+    queryKey: transactionsQueryKeys.list(filters),
     queryFn: () => TransactionService.retrieveTransactions(filters),
     staleTime: DEFAULT_STALE_TIME,
     gcTime: DEFAULT_GC_TIME,
@@ -87,7 +90,7 @@ export const useSuspenseInfiniteTransactions = (
   limit: number = 20
 ) => {
   return useSuspenseInfiniteQuery({
-    queryKey: queryKeys.infinite(filters, limit),
+    queryKey: transactionsQueryKeys.infinite(filters, limit),
     queryFn: ({ pageParam }) =>
       TransactionService.retrieveTransactions({
         ...filters,
@@ -120,7 +123,7 @@ export const useCreateTransaction = (
        *  자연스럽게 BudgetContext.tsx 내에서 useTransactions 통해 데이터 재조회 함
        */
       queryClient.invalidateQueries({
-        queryKey: queryKeys.lists(),
+        queryKey: transactionsQueryKeys.lists(),
         exact: false,
       });
     },
@@ -177,21 +180,23 @@ export const useUpdateTransaction = (
       data: UpdateTransactionRequest
     ): Promise<UpdateTransactionContext> => {
       await Promise.all([
-        queryClient.cancelQueries({ queryKey: queryKeys.detail(data.id) }),
         queryClient.cancelQueries({
-          queryKey: queryKeys.lists(),
+          queryKey: transactionsQueryKeys.detail(data.id),
+        }),
+        queryClient.cancelQueries({
+          queryKey: transactionsQueryKeys.lists(),
           exact: false,
         }),
       ]);
 
       const previousTransaction = queryClient.getQueryData<Transaction>(
-        queryKeys.detail(data.id)
+        transactionsQueryKeys.detail(data.id)
       );
 
       if (previousTransaction) {
         const updatedTransaction = { ...previousTransaction, ...data };
         queryClient.setQueryData<Transaction>(
-          queryKeys.detail(data.id),
+          transactionsQueryKeys.detail(data.id),
           updatedTransaction
         );
       }
@@ -203,15 +208,17 @@ export const useUpdateTransaction = (
 
       if (context?.previousTransaction) {
         queryClient.setQueryData(
-          queryKeys.detail(data.id),
+          transactionsQueryKeys.detail(data.id),
           context.previousTransaction
         );
       }
     },
     onSettled: (_, __, data) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.detail(data.id) });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.lists(),
+        queryKey: transactionsQueryKeys.detail(data.id),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionsQueryKeys.lists(),
         exact: false,
       });
     },
@@ -274,18 +281,18 @@ export const useDeleteTransaction = (
     ): Promise<DeleteTransactionContext> => {
       // 롤백 준비 (이전 스냅샷 저장)
       const previousTransaction = queryClient.getQueryData<Transaction>(
-        queryKeys.detail(data.id)
+        transactionsQueryKeys.detail(data.id)
       );
 
       queryClient.removeQueries({
-        queryKey: queryKeys.detail(data.id),
+        queryKey: transactionsQueryKeys.detail(data.id),
       });
 
       return { previousTransaction, id: data.id };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.lists(),
+        queryKey: transactionsQueryKeys.lists(),
         exact: false,
       });
     },
@@ -295,7 +302,7 @@ export const useDeleteTransaction = (
       // 롤백
       if (context?.previousTransaction) {
         queryClient.setQueryData(
-          queryKeys.detail(context.id),
+          transactionsQueryKeys.detail(context.id),
           context.previousTransaction
         );
       }
@@ -351,12 +358,15 @@ export const useDeleteAllTransactions = (
       data: DeleteAllTransactionRequest
     ): Promise<DeleteAllTransactionContext> => {
       const previousTransactions: Array<Transaction | undefined> = data.ids.map(
-        (id) => queryClient.getQueryData<Transaction>(queryKeys.detail(id))
+        (id) =>
+          queryClient.getQueryData<Transaction>(
+            transactionsQueryKeys.detail(id)
+          )
       );
 
       for (const id of data.ids) {
         queryClient.removeQueries({
-          queryKey: queryKeys.detail(id),
+          queryKey: transactionsQueryKeys.detail(id),
         });
       }
 
@@ -364,7 +374,7 @@ export const useDeleteAllTransactions = (
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.lists(),
+        queryKey: transactionsQueryKeys.lists(),
         exact: false,
       });
     },
@@ -376,31 +386,13 @@ export const useDeleteAllTransactions = (
         context.previousTransactions.forEach((transaction, index) => {
           const id = context.ids[index];
           if (transaction !== undefined) {
-            queryClient.setQueryData(queryKeys.detail(id), transaction);
+            queryClient.setQueryData(
+              transactionsQueryKeys.detail(id),
+              transaction
+            );
           }
         });
       }
-    },
-    ...options,
-  });
-};
-
-// 거래 내역 동기화 (외부 계좌 연동)
-export const useSyncTransactions = (
-  options?: UseMutationOptions<Transaction[], Error, void>
-) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: TransactionService.syncTransactions,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.lists(),
-        exact: false,
-      });
-    },
-    onError: (error) => {
-      console.error("거래 내역 동기화 실패:", error);
     },
     ...options,
   });

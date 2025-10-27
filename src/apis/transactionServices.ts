@@ -13,7 +13,6 @@ const ENDPOINTS = {
   TRANSACTIONS: "/budget/transactions",
   DELETE: "/budget/transactions/delete",
   DELETE_ALL: "/budget/transactions/delete-all",
-  SYNC: "/budget/transactions/sync",
 } as const;
 
 // 거래 내역 서비스 클래스
@@ -61,10 +60,5 @@ export class TransactionService {
     data: DeleteAllTransactionRequest
   ): Promise<void> {
     return api.post<void>(ENDPOINTS.DELETE_ALL, data);
-  }
-
-  // 거래 내역 동기화 (외부 계좌 연동)
-  static async syncTransactions(): Promise<Transaction[]> {
-    return api.post<Transaction[]>(ENDPOINTS.SYNC);
   }
 }

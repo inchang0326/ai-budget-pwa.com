@@ -5,7 +5,7 @@ import {
   QueryErrorResetBoundary,
 } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import { usePWA } from "./hooks/usePWA";
+import { usePWA } from "./hooks/PWA/usePWA";
 import GlobalLoader from "./components/feedback/GlobalLoader";
 import "./App.css";
 

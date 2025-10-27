@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import type { BudgetContextType } from "../contexts/BudgetContext";
-import BudgetContext from "../contexts/BudgetContext";
+import type { BudgetContextType } from "../../contexts/BudgetContext";
+import BudgetContext from "../../contexts/BudgetContext";
 
 export const useBudgetContext = (): BudgetContextType => {
   const ctx = useContext(BudgetContext);

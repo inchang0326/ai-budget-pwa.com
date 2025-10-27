@@ -8,7 +8,7 @@ export default function GlobalLoader({
    *  refetch란 최초 로딩 이후 동일한 Query Key에 대해 다시 fetch가 발생하는 모든 상황을 의미함
    *  - 포커스, 재연결, 마운트 정책, 무효화, 수동 refetch, 인터벌 등을 포함함
    */
-  includeInitial = false,
+  includeInitial = true,
 }: {
   includeInitial?: boolean;
 }) {

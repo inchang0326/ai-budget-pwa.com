@@ -1,4 +1,4 @@
-import { useBudgetContext } from "../hooks/useBudgetContext";
+import { useBudgetContext } from "../hooks/Budget/useBudgetContext";
 import type { Transaction } from "../types";
 import { TRANSACTION_TYPES } from "../types";
 import { formatCurrency } from "../utils";

@@ -72,3 +72,14 @@ export interface TransactionFilters {
   page?: number;
   limit?: number;
 }
+
+export interface OpenBankingCard {
+  no: string;
+  name: string;
+  company: string;
+  syncAt?: string;
+}
+
+export interface SyncOpenBankingCardHistoryRequest {
+  noList: Array<string>;
+}

@@ -8,8 +8,7 @@ import {
   useUpdateTransaction,
   useDeleteTransaction,
   useDeleteAllTransactions,
-  useSyncTransactions,
-} from "../hooks/useTransactions";
+} from "../hooks/Budget/useTransactions";
 import { keepPreviousData } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import isEqual from "lodash/isEqual"; // 깊은 비교 연산자
@@ -66,7 +65,7 @@ const reducer = (states: BudgetStatesType, actions: BudgetActionsType) => {
   }
 };
 
-const initalBudgetAppStates: BudgetStatesType = {
+const initalBudgetStates: BudgetStatesType = {
   selectedDate: {
     year: dayjs().year(),
     month: dayjs().month() + 1,
@@ -82,7 +81,6 @@ export interface BudgetContextType {
     deleteTransaction: (id: string) => void;
     deleteAllTransactions: (ids: Array<string>) => void;
     editTransaction: (transaction: Transaction) => void;
-    syncTransactions: () => void;
   };
 }
 
@@ -95,7 +93,7 @@ interface BudgetProviderPropsType {
 export const BudgetProvider = (props: BudgetProviderPropsType) => {
   console.log("BudgetProvider Rendering");
   // [변경상태, 상태변경행위] = useReducer(상태변경로직, 초기상태)
-  const [states, dispatch] = useReducer(reducer, initalBudgetAppStates);
+  const [states, dispatch] = useReducer(reducer, initalBudgetStates);
 
   // 최초 selectedDate.year, selectedDate.month 기준 데이터 조회
   // 참고1: React Hooks 정책에 따라 Hook은 컴포넌트 본문 또는 커스텀 훅의 최상위에서만 호출해야 하며, 루프/조건/중첩 함수(=reducer 포함) 안에서는 금지임
@@ -106,7 +104,8 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
       month: states.selectedDate.month,
     },
     /**
-     *  목적: 페이징 과정 등 Fallback UI 노출 시, 이전 데이터를 보여주기 위함
+     *  목적: 페이징 과정 중 Fallback UI 노출 시, 이전 데이터를 보여주기 위함
+     *  상세: 이전 queryKey에 대한 데이터를 keep 해둔 것으로, page 2에 대한 queryKey 요청 시, page 1에 대한 queryKey의 데이터를 place 함
      *  참고: useSuspenseQuery는 데이터 상태를 완료 또는 대기 2가지로만 보며 중간 표시 상태는 배제하기 떄문에, placeholderData 옵션을 지원하지 않음
      *       만약 비슷하게 기능을 구현하고 싶으면, useTransition 같은 훅과 함께 사용해야 함
      */
@@ -136,7 +135,6 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   const deleteMutation = useDeleteTransaction();
   const deleteAllMutation = useDeleteAllTransactions();
   const updateMutation = useUpdateTransaction();
-  const syncMutation = useSyncTransactions();
 
   const addTransaction = useCallback(
     async (transaction: Omit<Transaction, "id">) => {
@@ -179,10 +177,6 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
     [updateMutation]
   );
 
-  const syncTransactions = useCallback(async () => {
-    await syncMutation.mutateAsync();
-  }, [syncMutation]);
-
   const values: BudgetContextType = {
     states: memoizedStates,
     actions: {
@@ -191,7 +185,6 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
       deleteTransaction,
       deleteAllTransactions,
       editTransaction,
-      syncTransactions,
     },
   };
 

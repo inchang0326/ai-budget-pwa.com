@@ -6,7 +6,7 @@ import WordCloudChart from "./WordCloudChart/WordCloudChart";
 import PieChart from "./PieChart/PieChart";
 import BarChart from "./BarChart/BarChart";
 import "./ChartContainer.css";
-import { useBudgetContext } from "../../hooks/useBudgetContext";
+import { useBudgetContext } from "../../hooks/Budget/useBudgetContext";
 
 const ChartContainer = () => {
   console.log("ChartContainer Rendering");
