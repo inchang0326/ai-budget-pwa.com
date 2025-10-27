@@ -1,5 +1,5 @@
 import BudgetSummary from "./BudgetSummary";
-import DataSelector from "./data/DataSelector";
+import DataSelectContainr from "./data/DataSelectContainer";
 import ChartContainer from "./charts/ChartContainer";
 import TransactionContainer from "./transactions/TransactionContainer";
 import "./BudgetApp.css";
@@ -14,7 +14,7 @@ const BudgetApp = () => {
         <div className="budget-container">
           <header className="app-header">
             <h1>가계부</h1>
-            <DataSelector></DataSelector>
+            <DataSelectContainr></DataSelectContainr>
           </header>
           <BudgetSummary></BudgetSummary>
           <ChartContainer></ChartContainer>

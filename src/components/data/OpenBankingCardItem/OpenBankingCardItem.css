@@ -1,0 +1,86 @@
+.card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-background-card);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.card-item:hover {
+  border-color: var(--color-primary);
+  background: var(--color-background-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-item-selected {
+  border-color: var(--color-primary);
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.card-checkbox {
+  display: flex;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.card-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.card-name {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.card-details {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.card-number {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-family: monospace;
+}
+
+.card-company {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.card-sync-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .card-item {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-details {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}

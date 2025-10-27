@@ -40,3 +40,10 @@ export type Transaction = {
   description: string;
   date: string;
 };
+
+export type OpenBankingCardType = {
+  no: string;
+  name: string;
+  company: string;
+  syncAt?: string;
+};
