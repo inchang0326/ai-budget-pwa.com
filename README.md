@@ -36,7 +36,7 @@ Developed with react-ts on Vite
 <img width="1000" height="100" alt="image" src="https://github.com/user-attachments/assets/5d9f9193-2515-4363-b433-f3414542f021" />
 
 ### Data by sync
-<img width="974" height="699" alt="image" src="https://github.com/user-attachments/assets/9f1c0094-bbcb-44b3-b4bb-ea67491978d5" />
+<img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/9f1c0094-bbcb-44b3-b4bb-ea67491978d5" />
 
 ### Summary (balance, income, expense)
 <img width="1000" height="100" alt="image" src="https://github.com/user-attachments/assets/2fa2c853-4737-40ed-be98-676849b2838e" />
