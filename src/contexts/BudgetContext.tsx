@@ -78,7 +78,7 @@ export interface BudgetContextType {
   actions: {
     changeDate: (currentDate: DateRangeType) => void;
     addTransaction: (transaction: Omit<Transaction, "id">) => void;
-    deleteTransaction: (id: string) => void;
+    deleteTransaction: (id: string, cardNo?: string) => void;
     deleteAllTransactions: (ids: Array<string>) => void;
     editTransaction: (transaction: Transaction) => void;
   };
@@ -150,8 +150,8 @@ export const BudgetProvider = (props: BudgetProviderPropsType) => {
   );
 
   const deleteTransaction = useCallback(
-    async (id: string) => {
-      await deleteMutation.mutateAsync({ id });
+    async (id: string, cardNo?: string) => {
+      await deleteMutation.mutateAsync({ id, cardNo });
     },
     [deleteMutation]
   );

@@ -34,7 +34,7 @@ export interface Transaction {
   category: string;
   description: string;
   date: string;
-  cardComapnyCode?: string;
+  cardComapny?: string;
   cardNo?: string;
 }
 
@@ -48,6 +48,7 @@ export interface CreateTransactionRequest {
 
 export interface DeleteTransactionRequest {
   id: string;
+  cardNo?: string;
 }
 
 export interface DeleteAllTransactionRequest {

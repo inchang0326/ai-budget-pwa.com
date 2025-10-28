@@ -9,7 +9,7 @@ import { ITEM_LIMIT_COUNT_PER_PAGE } from "../../../const";
 interface TransactionListProps {
   transactions: Transaction[];
   handleOnClickEdit: (transaction: Transaction) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, cardNo?: string) => void;
 }
 
 const TransactionList = ({

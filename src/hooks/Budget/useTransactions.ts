@@ -33,7 +33,11 @@ export const transactionsQueryKeys = {
     { filters, limit },
   ],
   details: () => [...transactionsQueryKeys.all, "detail"],
-  detail: (id: string) => [...transactionsQueryKeys.details(), id],
+  detail: (id: string, cardNo?: string) => [
+    ...transactionsQueryKeys.details(),
+    id,
+    cardNo,
+  ],
 };
 // 참고: https://velog.io/@taewo/React-Query%EC%9D%98-Stale-Time-Cache-Time
 /**
@@ -250,6 +254,7 @@ export const useSuspenseUpdateTransaction = () => {
 interface DeleteTransactionContext {
   previousTransaction?: Transaction;
   id: string;
+  cardNo?: string;
 }
 
 export const useDeleteTransaction = (
@@ -281,14 +286,14 @@ export const useDeleteTransaction = (
     ): Promise<DeleteTransactionContext> => {
       // 롤백 준비 (이전 스냅샷 저장)
       const previousTransaction = queryClient.getQueryData<Transaction>(
-        transactionsQueryKeys.detail(data.id)
+        transactionsQueryKeys.detail(data.id, data.cardNo)
       );
 
       queryClient.removeQueries({
-        queryKey: transactionsQueryKeys.detail(data.id),
+        queryKey: transactionsQueryKeys.detail(data.id, data.cardNo),
       });
 
-      return { previousTransaction, id: data.id };
+      return { previousTransaction, id: data.id, cardNo: data.cardNo };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -302,7 +307,7 @@ export const useDeleteTransaction = (
       // 롤백
       if (context?.previousTransaction) {
         queryClient.setQueryData(
-          transactionsQueryKeys.detail(context.id),
+          transactionsQueryKeys.detail(context.id, context.cardNo),
           context.previousTransaction
         );
       }

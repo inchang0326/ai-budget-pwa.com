@@ -5,42 +5,57 @@
   padding: var(--spacing-lg) var(--spacing-2xl);
   border-bottom: 1px solid var(--color-border-light);
   transition: var(--transition-fast);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }
+
 .transaction-item:last-child {
   border-bottom: none;
 }
+
 .transaction-item:hover {
   background: var(--color-background-hover);
 }
+
 .transaction-info {
   flex: 1;
+  min-width: 200px;
 }
+
 .transaction-category {
   font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--spacing-xs);
 }
+
 .transaction-description {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 }
+
 .transaction-details {
   text-align: right;
+  min-width: 100px;
 }
+
 .transaction-amount {
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
 }
+
 .transaction-amount.income {
   color: var(--color-income);
 }
+
 .transaction-amount.expense {
   color: var(--color-expense);
 }
+
 .transaction-date {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
+
 .transaction-actions {
   display: flex;
   justify-content: center;
@@ -48,17 +63,9 @@
   gap: var(--spacing-sm);
   padding-left: 10px;
 }
+
 .edit-button,
 .delete-button {
-  @extend .btn-icon;
-}
-.edit-button {
-  @extend .btn-icon-edit;
-}
-.delete-button {
-  @extend .btn-icon-delete;
-}
-.edit-button {
   background: none;
   border: none;
   font-size: var(--font-size-base);
@@ -67,28 +74,48 @@
   border-radius: var(--spacing-xs);
   transition: var(--transition-fast);
 }
+
 .edit-button:hover:not(:disabled) {
   background: rgba(59, 130, 246, 0.1);
 }
+
 .edit-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.delete-button {
-  background: none;
-  border: none;
-  font-size: var(--font-size-base);
-  cursor: pointer;
-  padding: var(--spacing-xs);
-  border-radius: var(--spacing-xs);
-  transition: var(--transition-fast);
-}
+
 .delete-button:hover:not(:disabled) {
   background: rgba(239, 68, 68, 0.1);
 }
+
 .delete-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.transaction-card-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  flex-basis: 100%;
+}
+
+.transaction-card-company {
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 2px 8px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 4px;
+}
+
+.transaction-card-no {
+  font-family: "Courier New", monospace;
+  background: var(--color-background-muted);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
 }
 
 /* 반응형 */
@@ -99,18 +126,32 @@
     align-items: stretch;
     gap: var(--spacing-md);
   }
+
   .transaction-actions {
     align-self: flex-end;
   }
+
   .transaction-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
+  .transaction-card-info {
+    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
 }
+
 @media (max-width: 480px) {
   .transaction-actions {
     align-self: stretch;
     justify-content: flex-end;
+  }
+
+  .transaction-card-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
   }
 }

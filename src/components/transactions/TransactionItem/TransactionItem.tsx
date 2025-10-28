@@ -6,7 +6,7 @@ import "./TransactionItem.css";
 interface TransactionItemProps {
   transaction: Transaction;
   onEdit: (transaction: Transaction) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, cardNo?: string) => void;
 }
 
 const TransactionItem = ({
@@ -18,7 +18,7 @@ const TransactionItem = ({
 
   const handleDelete = () => {
     if (window.confirm("이 거래 내역을 삭제하시겠습니까?")) {
-      onDelete(transaction.id);
+      onDelete(transaction.id, transaction.cardNo);
     }
   };
 
@@ -28,11 +28,15 @@ const TransactionItem = ({
 
   return (
     <div className="transaction-item">
-      <div className="transaction-info">
-        <div className="transaction-card-company">
-          {transaction.cardCompanyCode}
+      {transaction.cardNo && (
+        <div className="transaction-card-info">
+          <div className="transaction-card-company">
+            {transaction.cardCompany}
+          </div>
+          <div className="transaction-card-no">{transaction.cardNo}</div>
         </div>
-        <div className="transaction-card-no">{transaction.cardNo}</div>
+      )}
+      <div className="transaction-info">
         <div className="transaction-category">{transaction.category}</div>
         <div className="transaction-description">{transaction.description}</div>
       </div>
