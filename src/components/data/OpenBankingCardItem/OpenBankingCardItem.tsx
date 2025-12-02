@@ -17,13 +17,13 @@ const OpenBankingCardItem = ({
   return (
     <div
       className={`card-item ${selected ? "card-item-selected" : ""}`}
-      onClick={() => onSelect(card.no)}
+      onClick={() => onSelect(card.finCardNo)}
     >
       <div className="card-checkbox">
         <input
           type="checkbox"
           checked={selected}
-          onChange={() => onSelect(card.no)}
+          onChange={() => onSelect(card.finCardNo)}
           onClick={(e) => e.stopPropagation()}
         />
       </div>

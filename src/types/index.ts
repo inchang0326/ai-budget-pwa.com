@@ -48,4 +48,5 @@ export type OpenBankingCardType = {
   name: string;
   company: string;
   syncAt?: string;
+  finCardNo: string;
 };

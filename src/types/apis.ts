@@ -81,6 +81,7 @@ export interface OpenBankingCard {
   name: string;
   company: string;
   syncAt?: string;
+  finCardNo: string;
 }
 
 export interface SyncOpenBankingCardHistoryRequest {
