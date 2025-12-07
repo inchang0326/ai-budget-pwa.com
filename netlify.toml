@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA(Single Page Application) 라우팅 처리
+# 모든 요청을 index.html로 리다이렉트하여 React Router가 처리하도록 함
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

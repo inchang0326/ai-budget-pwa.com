@@ -1,31 +1,29 @@
-.transaction-section {
+.transaction-container {
   padding: var(--spacing-3xl);
   background: var(--color-background);
 }
-.section-header {
+
+.transaction-container__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-2xl);
 }
-.section-header h3 {
+
+.transaction-container__title {
   font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text);
 }
-.header-buttons {
+
+.transaction-container__actions {
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
   flex-wrap: wrap;
 }
-.clear-button {
-  background: linear-gradient(
-    135deg,
-    var(--color-danger),
-    var(--color-danger-dark)
-  );
-  color: var(--color-text-white);
+
+.transaction-container__btn {
   border: none;
   padding: 10px 16px;
   border-radius: var(--border-radius);
@@ -33,74 +31,78 @@
   cursor: pointer;
   font-size: var(--font-size-sm);
   transition: var(--transition-fast);
-  gap: var(--spacing-sm);
+  color: var(--color-text-white);
+  min-width: 65px;
+}
+
+.transaction-container__btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.5;
+}
+
+.transaction-container__btn--clear {
+  background: linear-gradient(
+    135deg,
+    var(--color-danger),
+    var(--color-danger-dark)
+  );
   width: 85px;
 }
-.clear-button:hover:not(:disabled) {
+
+.transaction-container__btn--clear:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--color-danger-dark), #b91c1c);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
-.clear-button:disabled {
-  background: #94a3b8;
-  cursor: not-allowed;
-  transform: none;
-}
-.add-button {
+
+.transaction-container__btn--add {
   background: linear-gradient(
     135deg,
     var(--color-primary),
     var(--color-secondary)
   );
-  color: var(--color-text-white);
-  border: none;
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  cursor: pointer;
-  font-size: var(--font-size-sm);
-  transition: var(--transition-fast);
-  width: 65px;
 }
-.add-button:hover:not(:disabled) {
+
+.transaction-container__btn--add:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--color-primary-dark), #6b46c1);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
-.add-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: #94a3b8;
-}
-/* 반응형 */
+
+/* Response */
 @media (max-width: 768px) {
-  .transaction-section {
+  .transaction-container {
     padding: var(--spacing-2xl);
   }
-  .header-buttons {
+
+  .transaction-container__actions {
     width: 100%;
     justify-content: space-between;
   }
-  .clear-button,
-  .add-button {
+
+  .transaction-container__btn {
     flex: 1;
     min-width: auto;
     padding: 10px var(--spacing-md);
     font-size: var(--font-size-xs);
   }
 }
+
 @media (max-width: 480px) {
-  .section-header {
+  .transaction-container__header {
     flex-direction: column;
     gap: var(--spacing-lg);
     align-items: stretch;
   }
-  .header-buttons {
+
+  .transaction-container__actions {
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  .clear-button,
-  .add-button {
+
+  .transaction-container__btn {
     width: 100%;
   }
 }

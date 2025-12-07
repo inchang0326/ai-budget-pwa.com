@@ -17,61 +17,61 @@
   box-shadow: var(--shadow-sm);
 }
 
-.card-item-selected {
+.card-item--selected {
   border-color: var(--color-primary);
   background: rgba(102, 126, 234, 0.05);
 }
 
-.card-checkbox {
+.card-item__checkbox {
   display: flex;
   align-items: center;
   padding-top: 2px;
 }
 
-.card-checkbox input[type="checkbox"] {
+.card-item__checkbox input[type="checkbox"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
   accent-color: var(--color-primary);
 }
 
-.card-info {
+.card-item__info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
 
-.card-name {
+.card-item__name {
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
 }
 
-.card-details {
+.card-item__details {
   display: flex;
   gap: var(--spacing-md);
   flex-wrap: wrap;
 }
 
-.card-number {
+.card-item__number {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   font-family: monospace;
 }
 
-.card-company {
+.card-item__company {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 }
 
-.card-sync-date {
+.card-item__sync-date {
   font-size: var(--font-size-xs);
   color: var(--color-text-light);
   margin-top: var(--spacing-xs);
 }
 
-/* 반응형 */
+/* Response */
 @media (max-width: 768px) {
   .card-item {
     padding: var(--spacing-md);
@@ -79,7 +79,7 @@
 }
 
 @media (max-width: 480px) {
-  .card-details {
+  .card-item__details {
     flex-direction: column;
     gap: var(--spacing-xs);
   }

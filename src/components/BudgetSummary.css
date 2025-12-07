@@ -1,0 +1,64 @@
+@import "../styles/variables.css";
+
+.summary-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
+  background: var(--color-background);
+}
+
+.summary-card {
+  background: var(--color-background-card);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-card__label { /* Renamed from .summary-label for BEM */
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.summary-card__amount { /* Renamed from .summary-amount for BEM */
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.summary-card__amount--positive { /* Modifier */
+  color: var(--color-success-dark);
+}
+
+.summary-card__amount--negative { /* Modifier */
+  color: var(--color-danger);
+}
+
+.summary-card--total .summary-card__amount { /* BEM variation */
+  color: var(--color-balance);
+}
+
+/* Response */
+@media (max-width: 768px) {
+  .summary-section {
+    padding: var(--spacing-2xl);
+    gap: var(--spacing-lg);
+  }
+
+  .summary-card {
+    padding: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-section {
+    grid-template-columns: 1fr;
+  }
+}

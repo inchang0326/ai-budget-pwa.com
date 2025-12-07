@@ -14,8 +14,6 @@ const TransactionItem = ({
   onEdit,
   onDelete,
 }: TransactionItemProps) => {
-  console.log("TransactionItem Rendering");
-
   const handleDelete = () => {
     if (window.confirm("이 거래 내역을 삭제하시겠습니까?")) {
       onDelete(transaction.id, transaction.cardNo);
@@ -29,34 +27,42 @@ const TransactionItem = ({
   return (
     <div className="transaction-item">
       {transaction.cardNo && (
-        <div className="transaction-card-info">
-          <div className="transaction-card-company">
+        <div className="transaction-item__card-info">
+          <div className="transaction-item__card-company">
             {transaction.cardCompany}
           </div>
-          <div className="transaction-card-no">{transaction.cardNo}</div>
+          <div className="transaction-item__card-no">{transaction.cardNo}</div>
         </div>
       )}
-      <div className="transaction-info">
-        <div className="transaction-category">{transaction.category}</div>
-        <div className="transaction-description">{transaction.description}</div>
+      <div className="transaction-item__info">
+        <div className="transaction-item__category">{transaction.category}</div>
+        <div className="transaction-item__description">{transaction.description}</div>
       </div>
-      <div className="transaction-details">
-        <div className={`transaction-amount ${transaction.type}`}>
+      <div className="transaction-item__details">
+        <div
+          className={`transaction-item__amount ${
+            transaction.type === "income" ? "transaction-item__amount--income" : "transaction-item__amount--expense"
+          }`}
+        >
           {transaction.type === "income" ? "+" : "-"}
           {formatCurrencyCompact(transaction.amount)}
         </div>
-        <div className="transaction-date">{transaction.date}</div>
+        <div className="transaction-item__date">{transaction.date}</div>
       </div>
-      <div className="transaction-actions">
+      <div className="transaction-item__actions">
         <button
-          className="edit-button"
+          className="transaction-item__btn transaction-item__btn--edit"
           onClick={handleEdit}
           title="수정"
-          disabled={transaction.cardNo ? true : false}
+          disabled={!!transaction.cardNo}
         >
           ✏️
         </button>
-        <button className="delete-button" onClick={handleDelete} title="삭제">
+        <button
+          className="transaction-item__btn transaction-item__btn--delete"
+          onClick={handleDelete}
+          title="삭제"
+        >
           🗑️
         </button>
       </div>

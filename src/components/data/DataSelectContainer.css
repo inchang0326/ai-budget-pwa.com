@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.data-select {
+.data-selector__select {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--border-radius);
@@ -16,17 +16,17 @@
   width: 90px;
 }
 
-.data-select:focus {
+.data-selector__select:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.data-select option {
+.data-selector__select option {
   color: var(--color-text);
   background: var(--color-background-card);
 }
 
-.sync-button {
+.data-selector__sync-btn {
   background: rgba(255, 255, 255, 0.2);
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -36,25 +36,24 @@
   gap: var(--spacing-sm);
   width: 90px;
 }
-.sync-button:hover:not(:disabled) {
+
+.data-selector__sync-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--color-primary-dark), #6b46c1);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
-.sync-button:disabled {
+.data-selector__sync-btn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
   transform: none;
 }
 
-.sync-button:disabled .loading {
-  animation: spin 1s linear infinite;
-}
-.sync-button-img {
+.data-selector__sync-icon {
   height: 15px;
 }
-/* 반응형 */
+
+/* Response */
 @media (max-width: 480px) {
   .data-selector {
     flex: 1;

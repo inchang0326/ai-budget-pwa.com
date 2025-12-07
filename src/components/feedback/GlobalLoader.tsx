@@ -34,8 +34,8 @@ export default function GlobalLoader({
 
   return createPortal(
     <div className="global-loader-overlay">
-      <div className="global-loader-bar">
-        <div className="bar-fill" />
+      <div className="global-loader__bar">
+        <div className="global-loader__fill" />
       </div>
     </div>,
     document.body

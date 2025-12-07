@@ -11,14 +11,14 @@ interface OpenBankingCardListModalProps {
 const OpenBankingCardListModal = ({
   setShowModal,
 }: OpenBankingCardListModalProps) => {
-  console.log("OpenBankingCardListModal Rendering");
-
   const { states, actions } = useOpenBankingContext();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCardList, setSelectedCardList] = useState<Set<string>>(
     new Set()
   );
+
+  // ... (useEffect and handlers)
 
   useEffect(() => {
     // close modal by ESC key
@@ -101,14 +101,14 @@ const OpenBankingCardListModal = ({
   };
 
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-container">
-        <div className="modal-header">
-          <h2 className="modal-title">
+    <div className="card-list-modal-overlay" onClick={handleOverlayClick}>
+      <div className="card-list-modal">
+        <div className="card-list-modal__header">
+          <h2 className="card-list-modal__title">
             가계부에 거래 내역을 동기화할 카드를 선택해 주세요.
           </h2>
           <button
-            className="modal-close-btn"
+            className="card-list-modal__close-btn"
             onClick={() => setShowModal(false)}
             aria-label="닫기"
           >
@@ -116,15 +116,15 @@ const OpenBankingCardListModal = ({
           </button>
         </div>
 
-        <div className="modal-content">
+        <div className="card-list-modal__content">
           {states.cards.length === 0 ? (
-            <div className="modal-empty">
+            <div className="card-list-modal__empty">
               <p>금융결제원 오픈뱅킹에 등록된 카드가 없습니다.</p>
             </div>
           ) : (
             <>
-              <div className="select-all-container">
-                <div className="select-all-checkbox">
+              <div className="card-list-modal__select-all">
+                <div className="card-list-modal__checkbox-wrapper">
                   <input
                     type="checkbox"
                     id="select-all"
@@ -142,7 +142,7 @@ const OpenBankingCardListModal = ({
                 </div>
               </div>
 
-              <div className="card-list">
+              <div className="card-list-modal__list">
                 {currentCardList.map((card) => (
                   <OpenBankingCardItem
                     key={card.no}
@@ -154,9 +154,9 @@ const OpenBankingCardListModal = ({
               </div>
 
               {totalPages > 1 && (
-                <div className="pagination">
+                <div className="card-list-modal__pagination">
                   <button
-                    className="pagination-btn"
+                    className="card-list-modal__page-btn"
                     onClick={goToPrevPage}
                     disabled={currentPage === 1}
                     aria-label="이전 페이지"
@@ -164,14 +164,14 @@ const OpenBankingCardListModal = ({
                     ‹
                   </button>
 
-                  <div className="pagination-numbers">
+                  <div className="card-list-modal__page-numbers">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                       (pageNum) => (
                         <button
                           key={pageNum}
-                          className={`pagination-number ${
+                          className={`card-list-modal__page-number ${
                             currentPage === pageNum
-                              ? "pagination-number-active"
+                              ? "card-list-modal__page-number--active"
                               : ""
                           }`}
                           onClick={() => goToPage(pageNum)}
@@ -183,7 +183,7 @@ const OpenBankingCardListModal = ({
                   </div>
 
                   <button
-                    className="pagination-btn"
+                    className="card-list-modal__page-btn"
                     onClick={goToNextPage}
                     disabled={currentPage === totalPages}
                     aria-label="다음 페이지"
@@ -196,23 +196,23 @@ const OpenBankingCardListModal = ({
           )}
         </div>
 
-        <div className="modal-footer">
-          <div className="modal-footer-info">
+        <div className="card-list-modal__footer">
+          <div className="card-list-modal__footer-info">
             {selectedCardList.size > 0 && (
-              <span className="selected-count">
+              <span className="card-list-modal__selected-count">
                 {selectedCardList.size}개 선택됨
               </span>
             )}
           </div>
-          <div className="modal-footer-actions">
+          <div className="card-list-modal__footer-actions">
             <button
-              className="btn-base btn-secondary"
+              className="card-list-modal__btn card-list-modal__btn--secondary"
               onClick={() => setShowModal(false)}
             >
               취소
             </button>
             <button
-              className="btn-base btn-primary"
+              className="card-list-modal__btn card-list-modal__btn--primary"
               onClick={() => {
                 if (
                   window.confirm(

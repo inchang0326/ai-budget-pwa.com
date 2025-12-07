@@ -81,15 +81,15 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
 
   if (words.length === 0) {
     return (
-      <div className="wordcloud-chart-section">
-        <div className="no-data">데이터가 없습니다</div>
+      <div className="wordcloud-chart__section">
+        <div className="wordcloud-chart__no-data">데이터가 없습니다</div>
       </div>
     );
   }
 
   return (
-    <div className="wordcloud-chart-section" ref={containerRef}>
-      <div className="wordcloud-svg">
+    <div className="wordcloud-chart__section" ref={containerRef}>
+      <div className="wordcloud-chart__svg">
         <svg width="600" height="400" viewBox="0 0 600 400">
           {words.map((word, index) => (
             <text
@@ -109,13 +109,13 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
           ))}
         </svg>
       </div>
-      <div className="wordcloud-legend">
-        <div className="legend-item">
-          <div className="legend-color income-color" />
+      <div className="wordcloud-chart__legend">
+        <div className="wordcloud-chart__legend-item">
+          <div className="wordcloud-chart__legend-color wordcloud-chart__legend-color--income" />
           <span>수입</span>
         </div>
-        <div className="legend-item">
-          <div className="legend-color expense-color" />
+        <div className="wordcloud-chart__legend-item">
+          <div className="wordcloud-chart__legend-color wordcloud-chart__legend-color--expense" />
           <span>지출</span>
         </div>
       </div>

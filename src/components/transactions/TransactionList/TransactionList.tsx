@@ -17,8 +17,6 @@ const TransactionList = ({
   handleOnClickEdit,
   onDelete,
 }: TransactionListProps) => {
-  console.log("TransactionList Rendering");
-
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchType, setSearchType] = useState<TransactionType>(
     TRANSACTION_TYPES.ALL
@@ -79,38 +77,38 @@ const TransactionList = ({
   return (
     <>
       {/* Search */}
-      <div className="search-filter-section">
-        <div className="search-box">
+      <div className="transaction-list__filter-section">
+        <div className="transaction-list__search-box">
           <input
             type="text"
             placeholder="카테고리, 설명, 금액으로 검색..."
             value={searchTerm}
             onChange={(e) => handleSearchTermChange(e.target.value)}
-            className="search-input"
+            className="transaction-list__search-input"
           />
-          <div className="search-icon">🔍</div>
+          <div className="transaction-list__search-icon">🔍</div>
         </div>
 
-        <div className="filter-buttons">
+        <div className="transaction-list__filter-group">
           <button
-            className={`filter-button ${
-              searchType === TRANSACTION_TYPES.ALL ? "active" : ""
+            className={`transaction-list__filter-btn ${
+              searchType === TRANSACTION_TYPES.ALL ? "transaction-list__filter-btn--active" : ""
             }`}
             onClick={() => handleSearchTypeChange(TRANSACTION_TYPES.ALL)}
           >
             전체
           </button>
           <button
-            className={`filter-button ${
-              searchType === TRANSACTION_TYPES.INCOME ? "active" : ""
+            className={`transaction-list__filter-btn ${
+              searchType === TRANSACTION_TYPES.INCOME ? "transaction-list__filter-btn--active" : ""
             }`}
             onClick={() => handleSearchTypeChange(TRANSACTION_TYPES.INCOME)}
           >
             수입
           </button>
           <button
-            className={`filter-button ${
-              searchType === TRANSACTION_TYPES.EXPENSE ? "active" : ""
+            className={`transaction-list__filter-btn ${
+              searchType === TRANSACTION_TYPES.EXPENSE ? "transaction-list__filter-btn--active" : ""
             }`}
             onClick={() => handleSearchTypeChange(TRANSACTION_TYPES.EXPENSE)}
           >
@@ -122,7 +120,7 @@ const TransactionList = ({
       {/* Transaction List */}
       <div className="transaction-list">
         {filteredTransactions.length === 0 ? (
-          <div className="no-transactions">
+          <div className="transaction-list__empty">
             {searchTerm ? "검색 결과가 없습니다." : "거래 내역이 없습니다."}
             <br />
             {!searchTerm &&
@@ -131,7 +129,7 @@ const TransactionList = ({
         ) : (
           <>
             {/* Transaction Items */}
-            <div className="transaction-items">
+            <div className="transaction-list__items">
               {paginatedTransactions.map((transaction) => (
                 <TransactionItem
                   key={transaction.id}
@@ -144,9 +142,9 @@ const TransactionList = ({
 
             {/* Pages */}
             {totalPages > 1 && (
-              <div className="pagination">
+              <div className="transaction-list__pagination">
                 <button
-                  className="page-button"
+                  className="transaction-list__page-btn"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
@@ -157,8 +155,8 @@ const TransactionList = ({
                   (page) => (
                     <button
                       key={page}
-                      className={`page-button ${
-                        page === currentPage ? "active" : ""
+                      className={`transaction-list__page-btn ${
+                        page === currentPage ? "transaction-list__page-btn--active" : ""
                       }`}
                       onClick={() => handlePageChange(page)}
                     >
@@ -168,7 +166,7 @@ const TransactionList = ({
                 )}
 
                 <button
-                  className="page-button"
+                  className="transaction-list__page-btn"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                 >
@@ -177,7 +175,7 @@ const TransactionList = ({
               </div>
             )}
 
-            <div className="pagination-info">
+            <div className="transaction-list__page-info">
               전체 {filteredTransactions.length}건 중{" "}
               {(currentPage - 1) * ITEM_LIMIT_COUNT_PER_PAGE + 1}-
               {Math.min(

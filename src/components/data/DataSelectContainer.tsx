@@ -6,9 +6,7 @@ import syncIcon from "/sync-icon.jpg";
 import OpenBankingCardListModal from "./OpenBankingCardListModal/OpenBankingCardListModal";
 import { OpenBankingProvider } from "../../contexts/OpenBankingContext";
 
-const DataSelectContainr = () => {
-  console.log("DataSelectContainer Rendering");
-
+const DataSelectContainer = () => {
   const { states, actions } = useBudgetContext();
   const selectedDate: DateRangeType = states.selectedDate;
   const years = Array.from({ length: 5 }, (_, i) => selectedDate.year - 4 + i);
@@ -19,13 +17,13 @@ const DataSelectContainr = () => {
   return (
     <>
       <div className="data-selector">
-        <div className="data-synchronizer">
+        <div className="data-selector__sync-wrapper">
           <button
-            className="sync-button"
+            className="data-selector__sync-btn"
             onClick={() => setShowModal(true)}
             title="금융사 API 동기화"
           >
-            <img src={syncIcon} className="sync-button-img" alt="동기화" />
+            <img src={syncIcon} className="data-selector__sync-icon" alt="동기화" />
           </button>
         </div>
 
@@ -37,7 +35,7 @@ const DataSelectContainr = () => {
               year: parseInt(e.target.value),
             })
           }
-          className="data-select"
+          className="data-selector__select"
         >
           {years.map((year) => (
             <option key={year} value={year}>
@@ -53,7 +51,7 @@ const DataSelectContainr = () => {
               month: parseInt(e.target.value),
             })
           }
-          className="data-select"
+          className="data-selector__select"
         >
           {months.map((month) => (
             <option key={month} value={month}>
@@ -74,4 +72,4 @@ const DataSelectContainr = () => {
   );
 };
 
-export default DataSelectContainr;
+export default DataSelectContainer;

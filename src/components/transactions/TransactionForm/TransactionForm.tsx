@@ -24,9 +24,8 @@ const TransactionForm = ({
   onAdd,
   onEdit,
 }: TransactionFormProps) => {
-  console.log("TransactionForm Rendering");
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // form의 submit 시 발생하는 새로고침 이벤트 전파 방지
+    e.preventDefault();
     if (!formData.amount || !formData.category || !formData.description) {
       alert("모든 필드를 입력해주세요.");
       return;
@@ -51,12 +50,12 @@ const TransactionForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-transaction-form">
-      <div className="form-header">
-        <h4>{editingId ? "거래 내역 수정" : "거래 내역 추가"}</h4>
+    <form onSubmit={handleSubmit} className="transaction-form">
+      <div className="transaction-form__header">
+        <h4 className="transaction-form__title">{editingId ? "거래 내역 수정" : "거래 내역 추가"}</h4>
       </div>
 
-      <div className="form-row">
+      <div className="transaction-form__row">
         <select
           value={formData.type}
           onChange={(e) =>
@@ -65,7 +64,7 @@ const TransactionForm = ({
               type: e.target.value as TransactionType,
             })
           }
-          className="form-input"
+          className="transaction-form__input transaction-form__select"
         >
           <option value={TRANSACTION_TYPES.EXPENSE}>지출</option>
           <option value={TRANSACTION_TYPES.INCOME}>수입</option>
@@ -82,11 +81,11 @@ const TransactionForm = ({
             }
             handleSetFormData({ ...formData, amount: Number(e.target.value) });
           }}
-          className="form-input"
+          className="transaction-form__input transaction-form__input--amount"
         />
       </div>
 
-      <div className="form-row">
+      <div className="transaction-form__row">
         <input
           type="text"
           placeholder="카테고리"
@@ -94,9 +93,9 @@ const TransactionForm = ({
           onChange={(e) =>
             handleSetFormData({ ...formData, category: e.target.value })
           }
-          className="form-input"
+          className="transaction-form__input"
         />
-        <div className="form-input for-datepicker">
+        <div className="transaction-form__input transaction-form__datepicker-wrapper">
           <DatePicker
             selected={dayjs(formData.date).toDate()}
             onChange={(d) => {
@@ -109,7 +108,7 @@ const TransactionForm = ({
             dateFormat="yyyy-MM-dd"
             locale={ko}
             placeholderText="YYYY-MM-DD"
-            className="react-datepicker-custom"
+            className="transaction-form__datepicker-input"
           />
         </div>
       </div>
@@ -121,16 +120,16 @@ const TransactionForm = ({
         onChange={(e) =>
           handleSetFormData({ ...formData, description: e.target.value })
         }
-        className="form-input"
+        className="transaction-form__input transaction-form__input--full"
       />
 
-      <div className="form-buttons">
-        <button type="submit" className="submit-button">
+      <div className="transaction-form__actions">
+        <button type="submit" className="transaction-form__btn transaction-form__btn--submit">
           완료
         </button>
         <button
           type="button"
-          className="cancel-button"
+          className="transaction-form__btn transaction-form__btn--cancel"
           onClick={handleOnClickCancel}
         >
           취소

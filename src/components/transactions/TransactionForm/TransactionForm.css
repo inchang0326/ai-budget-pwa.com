@@ -1,30 +1,66 @@
-.add-transaction-form {
+.transaction-form {
   background: var(--color-background);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-lg);
   margin-bottom: var(--spacing-xl);
   border: 1px solid var(--color-border);
 }
-.form-header {
+
+.transaction-form__header {
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-sm);
   border-bottom: 1px solid var(--color-border);
 }
-.form-header h4 {
+
+.transaction-form__title {
   margin: 0;
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
 }
-.form-row {
+
+.transaction-form__row {
   display: flex;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-md);
 }
-.form-input.for-datepicker {
-  position: relative;
-  border: 0px;
+
+.transaction-form__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background-card);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-fast);
 }
+
+.transaction-form__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-border-focus);
+}
+
+.transaction-form__select {
+  flex: 0 0 100px;
+}
+
+.transaction-form__input--amount {
+  flex: 1;
+}
+
+.transaction-form__input--full {
+  width: 100%;
+}
+
+.transaction-form__datepicker-wrapper {
+  position: relative;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
 /* className in react-datepicker start */
 .react-datepicker-wrapper {
   width: 100%;
@@ -32,34 +68,44 @@
   position: absolute;
   inset: 0;
 }
+
 .react-datepicker__input-container {
   width: 100%;
   height: 100%;
 }
+
 /* custom */
-.react-datepicker-custom {
+.transaction-form__datepicker-input {
   width: 100%;
   height: 100%;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   background-color: var(--color-background-card);
   padding: 10px 12px;
   transition: var(--transition-fast);
   color: var(--color-text);
 }
+
+.transaction-form__datepicker-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-border-focus);
+}
+
 .react-datepicker-ignore-onclickoutside {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-border-focus);
 }
 /* className in react-datepicker end */
-.form-buttons {
+
+.transaction-form__actions {
   display: flex;
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
 }
-.cancel-button,
-.submit-button {
+
+.transaction-form__btn {
   padding: var(--spacing-sm) var(--spacing-lg);
   border: 2px solid var(--color-border);
   background: var(--color-background-card);
@@ -70,18 +116,31 @@
   transition: var(--transition-fast);
   color: var(--color-text-muted);
 }
-.cancel-button:hover,
-.submit-button:hover {
+
+.transaction-form__btn:hover {
   border-color: black;
   background: var(--color-background-hover);
 }
-/* 반응형 */
+
+.transaction-form__btn--submit {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-text-white);
+}
+
+.transaction-form__btn--submit:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+/* Response */
 @media (max-width: 768px) {
-  .form-row {
+  .transaction-form__row {
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  .form-buttons {
+
+  .transaction-form__actions {
     flex-direction: column;
   }
 }

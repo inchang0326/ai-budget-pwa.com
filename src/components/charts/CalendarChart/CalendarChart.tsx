@@ -18,7 +18,6 @@ type TooltipType = {
 };
 
 const CalendarChart = ({ transactions, selectedDate }: CalendarChartProps) => {
-  console.log("CalendarChart Rendering");
   const [tooltip, setTooltip] = useState<TooltipType | null>(null);
 
   const getDaysInMonth = () => {
@@ -61,18 +60,18 @@ const CalendarChart = ({ transactions, selectedDate }: CalendarChartProps) => {
 
   return (
     <>
-      <div className="calendar-chart-section">
-        <div className="calendar-grid">
+      <div className="calendar-chart__section">
+        <div className="calendar-chart__grid">
           {/* day of week in calendar */}
           {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
-            <div key={day} className="calendar-header">
+            <div key={day} className="calendar-chart__header">
               {day}
             </div>
           ))}
           {/* days in calendar */}
           {getDaysInMonth().map((day, index) => {
             if (!day) {
-              return <div key={index} className="calendar-empty" />;
+              return <div key={index} className="calendar-chart__empty" />;
             }
             const dayTransactions = getTransactionForDay(day);
             const totalIncome = dayTransactions
@@ -85,18 +84,18 @@ const CalendarChart = ({ transactions, selectedDate }: CalendarChartProps) => {
             return (
               <div
                 key={index}
-                className="calendar-day"
+                className="calendar-chart__day"
                 onMouseEnter={(e) => handleMouseEnter(day, e)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="day-number">{day}</div>
+                <div className="calendar-chart__day-number">{day}</div>
                 {totalIncome > 0 && (
-                  <div className="day-income">
+                  <div className="calendar-chart__day-income">
                     +{formatCurrencyCompact(totalIncome)}
                   </div>
                 )}
                 {totalExpense > 0 && (
-                  <div className="day-expense">
+                  <div className="calendar-chart__day-expense">
                     -{formatCurrencyCompact(totalExpense)}
                   </div>
                 )}
@@ -108,24 +107,26 @@ const CalendarChart = ({ transactions, selectedDate }: CalendarChartProps) => {
 
       {tooltip && (
         <div
-          className="calendar-tooltip"
+          className="calendar-chart__tooltip"
           style={{
             left: tooltip.x,
             top: tooltip.y,
             transform: "translate(-50%, -100%)",
           }}
         >
-          <div className="tooltip-header">{tooltip.day}일 거래 내역</div>
+          <div className="calendar-chart__tooltip-header">{tooltip.day}일 거래 내역</div>
           {tooltip.transactions.map((transaction) => (
-            <div key={transaction.id} className="tooltip-item">
-              <span className="tooltip-category">{transaction.category}</span>
-              <span className={`tooltip-amount ${transaction.type}`}>
+            <div key={transaction.id} className="calendar-chart__tooltip-item">
+              <span className="calendar-chart__tooltip-category">{transaction.category}</span>
+              <span className={`calendar-chart__tooltip-amount ${
+                  transaction.type === TRANSACTION_TYPES.INCOME ? "calendar-chart__tooltip-amount--income" : "calendar-chart__tooltip-amount--expense"
+                }`}>
                 {transaction.type === TRANSACTION_TYPES.INCOME ? "+" : "-"}
                 {formatCurrencyCompact(transaction.amount)}
               </span>
             </div>
           ))}
-          <div className="tooltip-bottom">
+          <div className="calendar-chart__tooltip-bottom">
             총 {tooltip.transactions.length}건의 거래
           </div>
         </div>

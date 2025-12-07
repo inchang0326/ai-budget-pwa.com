@@ -58,7 +58,6 @@ interface OpenBankingProviderPropsType {
 }
 
 export const OpenBankingProvider = (props: OpenBankingProviderPropsType) => {
-  console.log("OpenBankingProvider Rendering");
   // [변경상태, 상태변경행위] = useReducer(상태변경로직, 초기상태)
   const [states, dispatch] = useReducer(reducer, initalOpenBankingStates);
 

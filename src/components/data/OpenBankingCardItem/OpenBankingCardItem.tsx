@@ -13,13 +13,12 @@ const OpenBankingCardItem = ({
   selected,
   onSelect,
 }: OpenBankingCardItemProps) => {
-  console.log("OpenBankingCardItem Rendering");
   return (
     <div
-      className={`card-item ${selected ? "card-item-selected" : ""}`}
+      className={`card-item ${selected ? "card-item--selected" : ""}`}
       onClick={() => onSelect(card.finCardNo)}
     >
-      <div className="card-checkbox">
+      <div className="card-item__checkbox">
         <input
           type="checkbox"
           checked={selected}
@@ -27,14 +26,14 @@ const OpenBankingCardItem = ({
           onClick={(e) => e.stopPropagation()}
         />
       </div>
-      <div className="card-info">
-        <div className="card-name">{card.name}</div>
-        <div className="card-details">
-          <span className="card-number">{card.no}</span>
-          <span className="card-company">{card.company}</span>
+      <div className="card-item__info">
+        <div className="card-item__name">{card.name}</div>
+        <div className="card-item__details">
+          <span className="card-item__number">{card.no}</span>
+          <span className="card-item__company">{card.company}</span>
         </div>
         {card.syncAt && (
-          <div className="card-sync-date">최신 동기화 일자: {card.syncAt}</div>
+          <div className="card-item__sync-date">최신 동기화 일자: {card.syncAt}</div>
         )}
       </div>
     </div>

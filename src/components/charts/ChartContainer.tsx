@@ -9,8 +9,6 @@ import "./ChartContainer.css";
 import { useBudgetContext } from "../../hooks/Budget/useBudgetContext";
 
 const ChartContainer = () => {
-  console.log("ChartContainer Rendering");
-
   const { states } = useBudgetContext();
   const transactions: Array<Transaction> = states.transactions;
   const selectedDate: DateRangeType = states.selectedDate;
@@ -46,22 +44,22 @@ const ChartContainer = () => {
 
   return (
     <div className="chart-container">
-      <div className="chart-tabs">
+      <div className="chart-container__tabs">
         {CHART_OPTIONS.map((option) => (
           <button
             key={option.type}
-            className={`chart-tab ${
+            className={`chart-container__tab ${
               selectedChart === option.type ? "active" : ""
             }`}
             onClick={() => setSelectedChart(option.type)}
           >
-            <span className="chart-icon">{option.icon}</span>
-            <span className="chart-label">{option.label}</span>
+            <span className="chart-container__tab-icon">{option.icon}</span>
+            <span className="chart-container__tab-label">{option.label}</span>
           </button>
         ))}
       </div>
 
-      <div className="chart-container">{renderChart()}</div>
+      <div className="chart-container__content">{renderChart()}</div>
     </div>
   );
 };

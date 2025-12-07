@@ -1,13 +1,15 @@
-.calendar-chart-section {
+.calendar-chart__section {
   width: 100%;
   align-items: center;
 }
-.calendar-grid {
+
+.calendar-chart__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--spacing-sm);
 }
-.calendar-header {
+
+.calendar-chart__header {
   padding: var(--spacing-md);
   text-align: center;
   font-weight: 600;
@@ -15,7 +17,8 @@
   background: var(--color-background);
   border-radius: var(--border-radius);
 }
-.calendar-day {
+
+.calendar-chart__day {
   padding: var(--spacing-md) var(--spacing-sm);
   min-height: 80px;
   border: 1px solid var(--color-border);
@@ -23,27 +26,33 @@
   font-size: var(--font-size-xs);
   transition: var(--transition-fast);
 }
-.calendar-day:hover {
+
+.calendar-chart__day:hover {
   background: var(--color-background-hover);
   border-color: #cbd5e0;
 }
-.calendar-empty {
+
+.calendar-chart__empty {
   min-height: 80px;
 }
-.day-number {
+
+.calendar-chart__day-number {
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
   color: var(--color-text);
 }
-.day-income {
+
+.calendar-chart__day-income {
   color: var(--color-income);
   font-weight: 500;
 }
-.day-expense {
+
+.calendar-chart__day-expense {
   color: var(--color-expense);
   font-weight: 500;
 }
-.calendar-tooltip {
+
+.calendar-chart__tooltip {
   position: fixed;
   background: rgba(0, 0, 0, 0.9);
   color: var(--color-text-white);
@@ -56,47 +65,55 @@
   box-shadow: var(--shadow-lg);
   pointer-events: none;
 }
-.tooltip-header {
+
+.calendar-chart__tooltip-header {
   font-weight: 600;
   font-size: 14px;
   margin-bottom: var(--spacing-sm);
   padding-bottom: var(--spacing-xs);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-.tooltip-item {
+
+.calendar-chart__tooltip-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xs);
   padding: 4px 0;
 }
-.tooltip-bottom {
+
+.calendar-chart__tooltip-bottom {
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
-.tooltip-category {
+
+.calendar-chart__tooltip-category {
   flex: 1;
   margin-right: 12px;
   opacity: 0.9;
 }
-.tooltip-amount.income {
-  color: var(--color-success);
-  font-weight: bold;
-}
-.tooltip-amount.expense {
-  color: var(--color-expense);
+
+.calendar-chart__tooltip-amount {
   font-weight: bold;
 }
 
-/* 반응형 */
+.calendar-chart__tooltip-amount--income {
+  color: var(--color-success);
+}
+
+.calendar-chart__tooltip-amount--expense {
+  color: var(--color-expense);
+}
+
+/* Response */
 @media (max-width: 768px) {
-  .calendar-tooltip {
+  .calendar-chart__tooltip {
     font-size: 11px;
     min-width: 150px;
     max-width: 250px;
   }
-  .tooltip-header {
+  .calendar-chart__tooltip-header {
     font-size: 12px;
   }
 }

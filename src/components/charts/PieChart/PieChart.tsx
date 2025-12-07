@@ -9,7 +9,6 @@ interface PieChartProps {
 }
 
 const PieChart = ({ transactions }: PieChartProps) => {
-  console.log("PieChart Rendering");
   const [chartType, setChartType] = useState<TransactionType>(
     TRANSACTION_TYPES.EXPENSE
   );
@@ -93,18 +92,18 @@ const PieChart = ({ transactions }: PieChartProps) => {
   );
 
   const TypeSelector = () => (
-    <div className="chart-type-selector">
+    <div className="pie-chart__type-selector">
       <button
-        className={`chart-type-btn ${
-          chartType === TRANSACTION_TYPES.INCOME ? "active" : ""
+        className={`pie-chart__type-btn ${
+          chartType === TRANSACTION_TYPES.INCOME ? "pie-chart__type-btn--active" : ""
         }`}
         onClick={() => setChartType(TRANSACTION_TYPES.INCOME)}
       >
         수입
       </button>
       <button
-        className={`chart-type-btn ${
-          chartType === TRANSACTION_TYPES.EXPENSE ? "active" : ""
+        className={`pie-chart__type-btn ${
+          chartType === TRANSACTION_TYPES.EXPENSE ? "pie-chart__type-btn--active" : ""
         }`}
         onClick={() => setChartType(TRANSACTION_TYPES.EXPENSE)}
       >
@@ -115,9 +114,9 @@ const PieChart = ({ transactions }: PieChartProps) => {
 
   if (total === 0) {
     return (
-      <div className="pie-chart-section">
+      <div className="pie-chart__section">
         <TypeSelector />
-        <div className="no-data">
+        <div className="pie-chart__no-data">
           {chartType === TRANSACTION_TYPES.INCOME ? "수입" : "지출"} 데이터가
           없습니다
         </div>
@@ -126,11 +125,11 @@ const PieChart = ({ transactions }: PieChartProps) => {
   }
 
   return (
-    <div className="pie-chart-section">
+    <div className="pie-chart__section">
       <TypeSelector />
 
-      <div className="pie-chart-content">
-        <svg className="pie-chart" viewBox="0 0 100 100">
+      <div className="pie-chart__content">
+        <svg className="pie-chart__svg" viewBox="0 0 100 100">
           {Object.entries(currentData).length === 1 ? (
             <circle
               cx="50"
@@ -180,21 +179,21 @@ const PieChart = ({ transactions }: PieChartProps) => {
           )}
         </svg>
 
-        <div className="pie-chart-legend">
+        <div className="pie-chart__legend">
           {Object.entries(currentData).map(([category, amount], index) => {
             const percentage = ((amount / total) * 100).toFixed(1);
             return (
-              <div key={`legend-${category}`} className="legend-item">
+              <div key={`legend-${category}`} className="pie-chart__legend-item">
                 <div
-                  className="legend-color"
+                  className="pie-chart__legend-color"
                   style={{ backgroundColor: colors[index] }}
                 />
-                <span className="legend-label">{category}</span>
-                <div className="legend-info">
-                  <span className="legend-amount">
+                <span className="pie-chart__legend-label">{category}</span>
+                <div className="pie-chart__legend-info">
+                  <span className="pie-chart__legend-amount">
                     {formatCurrencyCompact(amount)}
                   </span>
-                  <span className="legend-percentage">({percentage}%)</span>
+                  <span className="pie-chart__legend-percentage">({percentage}%)</span>
                 </div>
               </div>
             );

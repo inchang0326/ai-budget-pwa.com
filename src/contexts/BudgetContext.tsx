@@ -91,7 +91,6 @@ interface BudgetProviderPropsType {
 }
 
 export const BudgetProvider = (props: BudgetProviderPropsType) => {
-  console.log("BudgetProvider Rendering");
   // [변경상태, 상태변경행위] = useReducer(상태변경로직, 초기상태)
   const [states, dispatch] = useReducer(reducer, initalBudgetStates);
 

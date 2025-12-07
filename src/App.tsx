@@ -43,8 +43,10 @@ function App() {
 
       {needRefresh && (
         <div className="toast">
-          새 버전이 있습니다.
-          <button onClick={confirmUpdate}>업데이트</button>
+          <span className="toast__message">새 버전이 있습니다.</span>
+          <button className="toast__action" onClick={confirmUpdate}>
+            업데이트
+          </button>
         </div>
       )}
     </div>

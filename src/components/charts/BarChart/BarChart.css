@@ -1,6 +1,7 @@
-.bar-chart {
+.bar-chart-section {
   width: 100%;
 }
+
 .bar-chart {
   display: flex;
   align-items: end;
@@ -9,55 +10,85 @@
   padding: var(--spacing-xl) 0;
   border-bottom: 2px solid var(--color-border);
 }
-.bar-group {
+
+.bar-chart__group {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
 }
-.bars {
+
+.bar-chart__bars {
   display: flex;
   gap: var(--spacing-xs);
   align-items: end;
   height: 200px;
 }
-.bar {
+
+.bar-chart__bar {
   width: var(--spacing-2xl);
   border-radius: var(--spacing-xs) var(--spacing-xs) 0 0;
   min-height: var(--spacing-xs);
   transition: var(--transition-fast);
 }
-.bar:hover {
+
+.bar-chart__bar:hover {
   opacity: 0.8;
   transform: scaleY(1.05);
 }
-.income-color {
+
+.bar-chart__bar--income {
   background: var(--color-income);
 }
-.expense-color {
+
+.bar-chart__bar--expense {
   background: var(--color-expense);
 }
-.bar-amount {
+
+.bar-chart__amount {
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-muted);
   margin-top: var(--spacing-sm);
   text-align: center;
 }
-.bar-legend {
+
+.bar-chart__legend {
   display: flex;
   gap: var(--spacing-2xl);
   margin-top: var(--spacing-lg);
 }
-.legend-item {
+
+.bar-chart__legend-item {
   flex: 1;
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
-/* 반응형 */
+.bar-chart__legend-color {
+  width: var(--spacing-md);
+  height: var(--spacing-md);
+  border-radius: var(--spacing-xs);
+  margin-right: var(--spacing-sm);
+}
+
+.bar-chart__legend-color--income {
+  background: var(--color-income);
+}
+
+.bar-chart__legend-color--expense {
+  background: var(--color-expense);
+}
+
+.bar-chart__no-data {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-muted);
+}
+
+/* Response */
 @media (max-width: 768px) {
   .bar-chart {
     gap: var(--spacing-lg);

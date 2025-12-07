@@ -8,8 +8,6 @@ import dayjs from "dayjs";
 import { useBudgetContext } from "../../hooks/Budget/useBudgetContext";
 
 const TransactionContainer = () => {
-  console.log("TransactionContainer Rendering");
-
   const { states, actions } = useBudgetContext();
   const transactions = states.transactions;
 
@@ -84,19 +82,19 @@ const TransactionContainer = () => {
   };
 
   return (
-    <div className="transaction-section">
-      <div className="section-header">
-        <h3>거래 내역</h3>
-        <div className="header-buttons">
+    <div className="transaction-container">
+      <div className="transaction-container__header">
+        <h3 className="transaction-container__title">거래 내역</h3>
+        <div className="transaction-container__actions">
           <button
-            className="clear-button"
+            className="transaction-container__btn transaction-container__btn--clear"
             onClick={handleOnClickAllClear}
             disabled={transactions.length === 0}
           >
             모두 삭제
           </button>
 
-          <button className="add-button" onClick={handleOnClickAdd}>
+          <button className="transaction-container__btn transaction-container__btn--add" onClick={handleOnClickAdd}>
             추가
           </button>
         </div>

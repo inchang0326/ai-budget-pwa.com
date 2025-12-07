@@ -4,7 +4,8 @@
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-.no-transactions {
+
+.transaction-list__empty {
   text-align: center;
   color: var(--color-text-muted);
   padding: 60px var(--spacing-4xl);
@@ -13,7 +14,8 @@
   line-height: 1.6;
   font-size: var(--font-size-base);
 }
-.search-filter-section {
+
+.transaction-list__filter-section {
   display: flex;
   gap: var(--spacing-lg);
   align-items: center;
@@ -23,12 +25,14 @@
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--color-border);
 }
-.search-box {
+
+.transaction-list__search-box {
   position: relative;
   flex: 1;
   max-width: 400px;
 }
-.search-input {
+
+.transaction-list__search-input {
   color: var(--color-text);
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) 44px;
@@ -38,15 +42,18 @@
   background: var(--color-background-card);
   transition: var(--transition-fast);
 }
-.search-input:focus {
+
+.transaction-list__search-input:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-border-focus);
 }
-.search-input::placeholder {
+
+.transaction-list__search-input::placeholder {
   color: var(--color-text-light);
 }
-.search-icon {
+
+.transaction-list__search-icon {
   position: absolute;
   left: var(--spacing-lg);
   top: 50%;
@@ -54,11 +61,13 @@
   color: #6b7280;
   font-size: var(--font-size-base);
 }
-.filter-buttons {
+
+.transaction-list__filter-group {
   display: flex;
   gap: var(--spacing-sm);
 }
-.filter-button {
+
+.transaction-list__filter-btn {
   padding: var(--spacing-sm) var(--spacing-lg);
   border: 2px solid var(--color-border);
   background: var(--color-background-card);
@@ -70,30 +79,35 @@
   color: var(--color-text-muted);
   width: 65px;
 }
-.filter-button:hover {
+
+.transaction-list__filter-btn:hover {
   border-color: #cbd5e0;
   background: var(--color-background-hover);
 }
-.filter-button.active {
+
+.transaction-list__filter-btn--active {
   border-color: var(--color-primary);
   background: var(--color-primary);
   color: var(--color-text-white);
 }
-.transaction-items {
+
+.transaction-list__items {
   background: var(--color-background-card);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   margin-bottom: var(--spacing-2xl);
 }
-.pagination {
+
+.transaction-list__pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: var(--spacing-sm);
   margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
 }
-.page-button {
+
+.transaction-list__page-btn {
   padding: var(--spacing-sm) var(--spacing-md);
   border: 1px solid #d1d5db;
   background: var(--color-background-card);
@@ -105,21 +119,25 @@
   transition: var(--transition-fast);
   min-width: 40px;
 }
-.page-button:hover:not(:disabled) {
+
+.transaction-list__page-btn:hover:not(:disabled) {
   background: #f3f4f6;
   border-color: var(--color-text-light);
 }
-.page-button.active {
+
+.transaction-list__page-btn--active {
   background: var(--color-primary);
   color: var(--color-text-white);
   border-color: var(--color-primary);
 }
-.page-button:disabled {
+
+.transaction-list__page-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   background: #f9fafb;
 }
-.pagination-info {
+
+.transaction-list__page-info {
   text-align: center;
   color: #6b7280;
   font-size: var(--font-size-sm);
@@ -129,40 +147,48 @@
   border-radius: var(--border-radius);
 }
 
-/* 반응형 */
+/* Response */
 @media (max-width: 768px) {
-  .search-filter-section {
+  .transaction-list__filter-section {
     flex-direction: column;
     gap: var(--spacing-lg);
     align-items: stretch;
   }
-  .search-box {
+
+  .transaction-list__search-box {
     max-width: none;
   }
-  .filter-buttons {
+
+  .transaction-list__filter-group {
     justify-content: center;
   }
-  .pagination {
+
+  .transaction-list__pagination {
     flex-wrap: wrap;
     gap: var(--spacing-xs);
   }
-  .page-button {
+
+  .transaction-list__page-btn {
     min-width: 36px;
     padding: var(--spacing-sm) 10px;
     font-size: 13px;
   }
 }
+
 @media (max-width: 480px) {
-  .search-filter-section {
+  .transaction-list__filter-section {
     padding: var(--spacing-lg);
   }
-  .filter-buttons {
+
+  .transaction-list__filter-group {
     flex-direction: column;
   }
-  .pagination {
+
+  .transaction-list__pagination {
     font-size: var(--font-size-xs);
   }
-  .pagination-info {
+
+  .transaction-list__page-info {
     font-size: var(--font-size-xs);
   }
 }
