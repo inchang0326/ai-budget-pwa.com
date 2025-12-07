@@ -43,7 +43,7 @@
 }
 
 .transaction-form__select {
-  flex: 0 0 100px;
+  flex: 1;
 }
 
 .transaction-form__input--amount {

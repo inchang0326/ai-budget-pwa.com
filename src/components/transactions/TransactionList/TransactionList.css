@@ -180,10 +180,6 @@
     padding: var(--spacing-lg);
   }
 
-  .transaction-list__filter-group {
-    flex-direction: column;
-  }
-
   .transaction-list__pagination {
     font-size: var(--font-size-xs);
   }

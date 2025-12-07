@@ -66,4 +66,8 @@
   .chart-container__tabs {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .chart-container__content {
+    padding: var(--spacing-md);
+  }
 }

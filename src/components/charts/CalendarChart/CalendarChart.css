@@ -1,12 +1,15 @@
 .calendar-chart__section {
   width: 100%;
-  align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--spacing-sm);
 }
 
 .calendar-chart__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--spacing-sm);
+  min-width: 600px;
 }
 
 .calendar-chart__header {
