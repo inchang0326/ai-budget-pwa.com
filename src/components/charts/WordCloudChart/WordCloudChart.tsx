@@ -53,7 +53,7 @@ const WordCloudChart = ({ transactions }: WordCloudChartProps) => {
     const radius = Math.min(containerWidth, containerHeight) / 3;
     const angleStep = (2 * Math.PI) / data.length;
 
-    const newWords: WordItem[] = data.map(([k, v], i) => {
+    const newWords: WordItem[] = data.map(([_, v], i) => {
       const size = 16 + (v.amount / maxAmount) * 40;
       const angle = i * angleStep + Math.random() * 0.5; // 약간의 랜덤성 추가
       const r = radius * (0.3 + Math.random() * 0.7); // 반지름에도 변화 추가

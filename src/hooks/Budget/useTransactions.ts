@@ -301,7 +301,7 @@ export const useDeleteTransaction = (
         exact: false,
       });
     },
-    onError: (error, data, context) => {
+    onError: (error, _data, context) => {
       console.error("거래 내역 삭제 실패:", error);
 
       // 롤백
@@ -383,7 +383,7 @@ export const useDeleteAllTransactions = (
         exact: false,
       });
     },
-    onError: (error, data, context) => {
+    onError: (error, _data, context) => {
       console.error("모든 거래 내역 삭제 실패:", error);
 
       // 롤백

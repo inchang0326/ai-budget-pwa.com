@@ -60,7 +60,7 @@ export default defineConfig(({ mode }) => {
           runtimeCaching: [
             {
               // 1) API 요청: 최신성 중요 + 네트워크 지연 시 캐시 폴백을 위해 NetworkFirst 권장
-              urlPattern: /^http:\/\/localhost\:8080\/.*$/i, // 대상 API 엔드포인트(정규식/함수 모두 가능)
+              urlPattern: new RegExp(`^${env.VITE_API_BASE_URL || "http://localhost:8000"}/.*$`, "i"),
               handler: "NetworkFirst", // 네트워크 우선, 타임아웃 후 캐시 폴백
               options: {
                 cacheName: "api-cache",
