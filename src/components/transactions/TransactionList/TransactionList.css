@@ -80,11 +80,6 @@
   width: 65px;
 }
 
-.transaction-list__filter-btn:hover {
-  border-color: #cbd5e0;
-  background: var(--color-background-hover);
-}
-
 .transaction-list__filter-btn--active {
   border-color: var(--color-primary);
   background: var(--color-primary);
