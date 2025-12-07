@@ -78,8 +78,8 @@
     right: 12px;
     bottom: 12px;
     max-width: unset;
-    justify-content: center;
-    text-align: center;
+  justify-content: space-between;
+    text-align: left;
   }
 }
 
@@ -116,6 +116,7 @@
   flex: 1 1 auto;
   min-width: 0;
   overflow-wrap: anywhere;
+  text-align: left;
 }
 
 .toast__action {
