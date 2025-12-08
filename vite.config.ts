@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
           // manifest 외 정적 자산을 캐시에 포함
           "favicon.ico", // 브라우저 탭/북마크 아이콘 (public/favicon.ico)
           "robots.txt", // 크롤러 규칙 파일 (public/robots.txt)
-          "apple-touch-icon.png", // iOS 홈 화면 아이콘 (public/apple-touch-icon.png)
+          "budget-app-apple-touch-icon.png", // iOS 홈 화면 아이콘 (public/budget-app-apple-touch-icon.png)
         ],
         manifest: {
           // 웹 앱 매니페스트 (설치 메타 정보)
@@ -33,18 +33,18 @@ export default defineConfig(({ mode }) => {
           icons: [
             // 안드로이드/크롬에서 설치에 쓰일 아이콘들
             {
-              src: "/icons/icon-192x192.png",
+              src: "/icons/budget-app-icon-192x192.png",
               sizes: "192x192",
               type: "image/png",
             },
             {
-              src: "/icons/icon-512x512.png",
+              src: "/icons/budget-app-icon-512x512.png",
               sizes: "512x512",
               type: "image/png",
             },
             // maskable: 다양한 마스크(원형/라운드 등)에서도 안전한 가시 영역 확보
             {
-              src: "/icons/icon-512x512-maskable.png",
+              src: "/icons/budget-app-icon-512x512-maskable.png",
               sizes: "512x512",
               type: "image/png",
               purpose: "maskable",
