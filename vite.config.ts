@@ -33,8 +33,8 @@ export default defineConfig(({ mode }) => {
           icons: [
             // 안드로이드/크롬에서 설치에 쓰일 아이콘들
             {
-              src: "/icons/budget-app-icon-192x192.png",
-              sizes: "192x192",
+              src: "/icons/budget-app-icon-200x200.png",
+              sizes: "200x200",
               type: "image/png",
             },
             {
