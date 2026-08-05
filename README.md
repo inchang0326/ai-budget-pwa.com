@@ -16,7 +16,7 @@ Developed with react-ts on Vite
 - Basic functions: create/retrieve/update/delete transactions
 - Budget visualization with charts(calendar, wordcloud, pie, bar)
 - Open banking cards payment history synchronization
-- Authentication: Sign up, Log in, Log out, Protected Routes
+- Authentication: Sign up, Log in/Log out
 - AI-driven investment recommendation based on the balance
 
 ## Web Structure
@@ -74,7 +74,7 @@ AI studying...
 <img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/f469a760-8f65-485d-bf09-c5a33fc6f707" />
 
 ### Auth
-<img width="1000" alt="Auth Screens Placeholder" src="https://via.placeholder.com/1000x500?text=Login+and+Signup+Screens" />
+<img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/78c777e3-3e81-48b5-8e37-eb2cc7daf40a" />
 
 ## Getting Started to dev
 
