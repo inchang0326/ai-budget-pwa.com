@@ -1,49 +1,31 @@
 import axios from "axios";
 import type { ApiResponse, ApiError } from "../types/apis";
+import { supabase } from "../utils/supabase";
 
 const proxy = import.meta.env.VITE_USE_PROXY === "true";
 
 const apiClient = axios.create({
   baseURL: proxy ? "/api" : import.meta.env.VITE_API_BASE_URL,
-  timeout: import.meta.env.VITE_API_TIMEOUT,
+  timeout: parseInt(import.meta.env.VITE_API_TIMEOUT || "10000", 10),
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-const tokenManager = {
-  get: (): string | null => {
-    try {
-      return localStorage.getItem("accessToken");
-    } catch {
-      return null;
-    }
-  },
-  set: (token: string): void => {
-    try {
-      localStorage.setItem("accessToken", token);
-    } catch {
-      console.warn("토큰 저장에 실패했습니다.");
-    }
-  },
-  remove: (): void => {
-    try {
-      localStorage.removeItem("accessToken");
-    } catch {
-      console.warn("토큰 제거에 실패했습니다.");
-    }
-  },
-};
-
 // 요청 인터셉터
 apiClient.interceptors.request.use(
-  (config) => {
+  (async (config: any) => {
     config.headers = config.headers ?? {};
-    config.headers["X-USER-ID"] = "00000000000000000001";
 
-    const token = tokenManager.get();
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      
+      if (token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (err) {
+      console.error("세션을 가져오는 데 실패했습니다.", err);
     }
 
     // 요청 ID 추가 (디버깅용) - headers 사용
@@ -52,7 +34,7 @@ apiClient.interceptors.request.use(
     }
 
     return config;
-  },
+  }) as any,
   (error) => Promise.reject(error)
 );
 
@@ -80,7 +62,7 @@ apiClient.interceptors.response.use(
     };
 
     if (error.response?.status === 401) {
-      tokenManager.remove();
+      supabase.auth.signOut().catch(console.error);
       // 현재 페이지가 로그인 페이지가 아닌 경우에만 리다이렉트
       if (window.location.pathname !== "/login") {
         window.location.href = "/login";

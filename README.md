@@ -8,6 +8,8 @@ Developed with react-ts on Vite
 - Re-rendering optimization with React Hooks(useCallback, useMemo, memo)
 - React-query wrapping Axios for REST API
 - PWA(Progressive Web App) build
+- Authentication: Supabase Auth, JWT
+- Routing: react-router-dom
 
 ## Features
 
@@ -15,6 +17,8 @@ Developed with react-ts on Vite
 - Budget visualization with charts(calendar, wordcloud, pie, bar)
 - Open banking cards payment history synchronization
 - AI-driven investment recommendation based on the balance
+- Authentication: Sign up, Log in, Log out, Protected Routes
+- Theme: Global Dark/Light mode toggle
 
 ## Web Structure
 
@@ -26,6 +30,8 @@ Developed with react-ts on Vite
     - Charts
     - Transactions
   - Auth
+    - Login
+    - Signup
 
 ## Detail Images
 
@@ -69,7 +75,7 @@ AI studying...
 <img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/f469a760-8f65-485d-bf09-c5a33fc6f707" />
 
 ### Auth
-Developing...
+<img width="1000" alt="Auth Screens Placeholder" src="https://via.placeholder.com/1000x500?text=Login+and+Signup+Screens" />
 
 ## Getting Started to dev
 
