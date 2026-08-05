@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  min-height: 100dvh; /* 모바일 브라우저 주소창 동적 높이 대응 */
+  min-height: 100svh; /* 주소창 유무와 관계없이 항상 고정된 최소 높이 (점핑 방지) */
   background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-muted) 100%);
   color: var(--color-text);
   padding: 1rem;
@@ -15,7 +15,6 @@
 
 .auth-card {
   background: var(--color-background-card);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   padding: 2.5rem;
@@ -23,6 +22,7 @@
   max-width: 400px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0); /* 렌더링 지터링 방지 */
 }
 
 @keyframes slideUp {
