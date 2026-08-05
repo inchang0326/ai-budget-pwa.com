@@ -34,6 +34,9 @@ Developed with react-ts on Vite
 
 ## Detail Images
 
+### Auth
+<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/78c777e3-3e81-48b5-8e37-eb2cc7daf40a" />
+
 ### Budget (Home)
 <img width="1000" height="2000" alt="image" src="https://github.com/user-attachments/assets/e67c88c4-4d70-4158-a195-3b21611727df" />
 
@@ -72,9 +75,6 @@ AI studying...
 
 ### Transaction delete
 <img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/f469a760-8f65-485d-bf09-c5a33fc6f707" />
-
-### Auth
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/78c777e3-3e81-48b5-8e37-eb2cc7daf40a" />
 
 ## Getting Started to dev
 
