@@ -6,32 +6,31 @@ Developed with react-ts on Vite
 
 - States, props management: Context API + useReducer
 - Re-rendering optimization with React Hooks(useCallback, useMemo, memo)
-- React-query wrapping Axios for REST API
-- PWA(Progressive Web App) build
-- Authentication: Supabase Auth, JWT
 - Routing: react-router-dom
+- React-query wrapping Axios for REST API
+- Authentication: Supabase Auth, JWT
+- PWA(Progressive Web App) build
 
 ## Features
 
 - Basic functions: create/retrieve/update/delete transactions
 - Budget visualization with charts(calendar, wordcloud, pie, bar)
 - Open banking cards payment history synchronization
-- AI-driven investment recommendation based on the balance
 - Authentication: Sign up, Log in, Log out, Protected Routes
-- Theme: Global Dark/Light mode toggle
+- AI-driven investment recommendation based on the balance
 
 ## Web Structure
 
 - Home
+  - Auth
+    - Login
+    - Signup
   - Budget
     - Data
     - Summary
       - Investment
     - Charts
     - Transactions
-  - Auth
-    - Login
-    - Signup
 
 ## Detail Images
 
