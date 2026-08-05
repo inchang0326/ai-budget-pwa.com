@@ -34,47 +34,33 @@ Developed with react-ts on Vite
 
 ## Detail Images
 
-### Auth
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/78c777e3-3e81-48b5-8e37-eb2cc7daf40a" />
+| Auth | Budget (Home) |
+|---|---|
+| <img width="100%" alt="Auth" src="https://github.com/user-attachments/assets/78c777e3-3e81-48b5-8e37-eb2cc7daf40a" /> | <img width="100%" alt="Budget Home" src="https://github.com/user-attachments/assets/e67c88c4-4d70-4158-a195-3b21611727df" /> |
 
-### Budget (Home)
-<img width="1000" height="2000" alt="image" src="https://github.com/user-attachments/assets/e67c88c4-4d70-4158-a195-3b21611727df" />
+| Data (by sync, by date) | Data by sync |
+|---|---|
+| <img width="100%" alt="Data sync" src="https://github.com/user-attachments/assets/5d9f9193-2515-4363-b433-f3414542f021" /> | <img width="100%" alt="Data sync" src="https://github.com/user-attachments/assets/9f1c0094-bbcb-44b3-b4bb-ea67491978d5" /> |
 
-### Data (by sync, by date)
-<img width="1000" height="100" alt="image" src="https://github.com/user-attachments/assets/5d9f9193-2515-4363-b433-f3414542f021" />
+| Summary (balance, income, expense) | Investment (AI-driven) |
+|---|---|
+| <img width="100%" alt="Summary" src="https://github.com/user-attachments/assets/2fa2c853-4737-40ed-be98-676849b2838e" /> | <div align="center">AI studying...</div> |
 
-### Data by sync
-<img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/9f1c0094-bbcb-44b3-b4bb-ea67491978d5" />
+| Calendar Chart | Wordcloud Chart |
+|---|---|
+| <img width="100%" alt="Calendar" src="https://github.com/user-attachments/assets/80341c97-12f7-4ef9-a18d-c5ca5dccae9f" /> | <img width="100%" alt="Wordcloud" src="https://github.com/user-attachments/assets/843a7c71-e898-4b2e-891c-3a13058bcd21" /> |
 
-### Summary (balance, income, expense)
-<img width="1000" height="100" alt="image" src="https://github.com/user-attachments/assets/2fa2c853-4737-40ed-be98-676849b2838e" />
+| Pie Chart | Bar Chart |
+|---|---|
+| <img width="100%" alt="Pie" src="https://github.com/user-attachments/assets/5cf7b403-3ffb-4a0d-a336-2a7ddd5e2c0d" /> | <img width="100%" alt="Bar" src="https://github.com/user-attachments/assets/68ca51c6-0cc7-4795-a232-89d5521fc9e2" /> |
 
-### Investment (AI-driven)
-AI studying...
+| Transaction list | Transaction add |
+|---|---|
+| <img width="100%" alt="Transaction list" src="https://github.com/user-attachments/assets/f3a920ed-8287-4a95-91d5-62db0caf7160" /> | <img width="100%" alt="Transaction add" src="https://github.com/user-attachments/assets/29ee1344-791c-466f-85bb-fe017e2b5dd7" /> |
 
-### Calendar Chart
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/80341c97-12f7-4ef9-a18d-c5ca5dccae9f" />
-
-### Wordcloud Chart
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/843a7c71-e898-4b2e-891c-3a13058bcd21" />
-
-### Pie Chart
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/5cf7b403-3ffb-4a0d-a336-2a7ddd5e2c0d" />
-
-### Bar Chart
-<img width="1000" height="600" alt="image" src="https://github.com/user-attachments/assets/68ca51c6-0cc7-4795-a232-89d5521fc9e2" />
-
-### Transaction list
-<img width="1000" height="800" alt="image" src="https://github.com/user-attachments/assets/f3a920ed-8287-4a95-91d5-62db0caf7160" />
-
-### Transaction add
-<img width="1000" height="250" alt="image" src="https://github.com/user-attachments/assets/29ee1344-791c-466f-85bb-fe017e2b5dd7" />
-
-### Transaction edit
-<img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/c7368641-5506-4d4a-a38a-b1de1047bf16" />
-
-### Transaction delete
-<img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/f469a760-8f65-485d-bf09-c5a33fc6f707" />
+| Transaction edit | Transaction delete |
+|---|---|
+| <img width="100%" alt="Transaction edit" src="https://github.com/user-attachments/assets/c7368641-5506-4d4a-a38a-b1de1047bf16" /> | <img width="100%" alt="Transaction delete" src="https://github.com/user-attachments/assets/f469a760-8f65-485d-bf09-c5a33fc6f707" /> |
 
 ## Getting Started to dev
 
